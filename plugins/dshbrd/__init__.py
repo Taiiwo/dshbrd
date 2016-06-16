@@ -11,5 +11,5 @@ def get_cards():
             dir_names.append(dir_name)
     return make_success_response({'cards': dir_names})
 
-def main(conf):
+def main(app, config):
     pass
