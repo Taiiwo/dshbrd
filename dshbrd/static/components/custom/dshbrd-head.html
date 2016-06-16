@@ -1,0 +1,36 @@
+<dom-module id="dshbrd-head">
+	<template>
+		<style>
+			#top-bar {
+				height: 150px;
+				background-color: #e00032;
+			}
+
+			.logo {
+				font-family: 'Roboto', sans-serif;
+				font-weight: normal;
+				color: #ffffff;
+				text-align: center;
+				padding: 28px;
+				font-size: 64px;
+			}
+
+			search-bar {
+				margin: 0 auto;
+				display: block;
+				float: none;
+				max-width: 800px;
+			}
+		</style>
+		<div id="top-bar">
+			<h1 class="logo">{{ title }}</h1>
+			<search-bar></search-bar>
+		</div>
+	</template>
+</dom-module>
+<script>
+	Polymer({
+		is: "dshbrd-head",
+
+	});
+</script>
