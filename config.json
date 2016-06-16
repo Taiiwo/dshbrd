@@ -2,21 +2,21 @@
   "allow_config_writing": true,
   "allow_login_with_email": false,
   "bind_addr": "0.0.0.0",
-  "debug": true,
+  "debug": false,
   "emails_are_unique": true,
   "force_email_submission": false,
   "mongo": {
-    "auth_db": "authhack",
-    "default_db": "componenthack",
+    "auth_db": "dshbrd_auth",
+    "default_db": "dshbrd_comp",
     "host": "localhost",
     "port": 27017
   },
   "plugins": {
     "admin": {
-      "enabled": false
+      "enabled": true
     },
     "auth": {
-      "enabled": false
+      "enabled": true
     },
     "blog": {
       "enabled": false
@@ -41,6 +41,6 @@
     "frequency": "daily",
     "type": "cron"
   },
-  "secret_key": "86e6caf7ee9a1505fda05fccfeda770f4f317bc9b16a2cee1d3b2711ef92a934",
-  "verify_emails": false
+  "secret_key": "ce80f1e4d424da154932dc8ecbd9665c24a337fb6f0b11d9b2052b15b984fd54",
+  "verify_emails": true
 }

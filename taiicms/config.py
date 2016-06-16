@@ -19,15 +19,18 @@ default_config = {
     "debug": False,
 
     "plugins": {
-        "blog": {
-            "enabled": True
-        },
-        "layout": {
+        "admin": {
             "enabled": True
         },
         "auth": {
             "enabled": True
         },
+        "hackpaml": {
+            "enabled": True
+        },
+        "layout": {
+            "enabled": True
+        }
     },
 
     "scheduling": {
@@ -38,8 +41,8 @@ default_config = {
     "mongo": {
         "host": "localhost",
         "port": 27017,
-        "default_db": "component",
-        "auth_db": "auth",
+        "default_db": "dshbrd_comp",
+        "auth_db": "dshbrd_auth",
     }
 }
 
