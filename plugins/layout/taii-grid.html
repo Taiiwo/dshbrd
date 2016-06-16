@@ -1,4 +1,4 @@
-<script type="text/javascript" src="../../js/freewall.js"></script>
+<script type="text/javascript" src="/static/js/freewall.js"></script>
 <dom-module id="taii-grid">
     <template>
         <style>
@@ -30,6 +30,7 @@
 			$(window).trigger("resize");
     },
     append_grid: function(div){
+      site.append_stack(function(){
         var self = this;
         div.find('img').load(function() {
           self.wall.fitWidth();
@@ -37,6 +38,7 @@
         div.attr('data-width', '270');
         this.wall.prepend(div);
         this.wall.fitWidth();
+      });
     }
   });
 </script>
