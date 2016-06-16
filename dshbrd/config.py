@@ -19,16 +19,7 @@ default_config = {
     "debug": False,
 
     "plugins": {
-        "auth": {
-            "enabled": True
-        },
         "dshbrd": {
-            "enabled": True
-        },
-        "layout": {
-            "enabled": True
-        },
-        "version": {
             "enabled": True
         }
     },
