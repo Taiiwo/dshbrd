@@ -30,14 +30,15 @@
 			$(window).trigger("resize");
     },
     append_grid: function(div){
+      var self = this;
+      // wait until the grid is actually loaded
       site.append_stack(function(){
-        var self = this;
         div.find('img').load(function() {
           self.wall.fitWidth();
         });
         div.attr('data-width', '270');
-        this.wall.prepend(div);
-        this.wall.fitWidth();
+        self.wall.prepend(div);
+        self.wall.fitWidth();
       });
     }
   });
