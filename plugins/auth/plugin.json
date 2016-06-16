@@ -1,0 +1,18 @@
+{
+  "author": "Taiiwo",
+  "description": "Add login to your site!",
+  "website": "https://github.com/Taiiwo/TaiiCMS",
+  "depends": [],
+  "conflicts": [],
+  "pages": {
+    "/my-account": {
+      "file_path": "account-settings.html"
+    },
+    "/login": {
+      "file_path": "login-page.html"
+    },
+    "/register": {
+      "file_path": "register-page.html"
+    }
+  }
+}

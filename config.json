@@ -1,0 +1,46 @@
+{
+  "allow_config_writing": true,
+  "allow_login_with_email": false,
+  "bind_addr": "0.0.0.0",
+  "debug": true,
+  "emails_are_unique": true,
+  "force_email_submission": false,
+  "mongo": {
+    "auth_db": "authhack",
+    "default_db": "componenthack",
+    "host": "localhost",
+    "port": 27017
+  },
+  "plugins": {
+    "admin": {
+      "enabled": false
+    },
+    "auth": {
+      "enabled": false
+    },
+    "blog": {
+      "enabled": false
+    },
+    "hackpaml": {
+      "enabled": true
+    },
+    "layout": {
+      "enabled": true
+    },
+    "payment": {
+      "enabled": false,
+      "nmi": {
+        "api_key": "2F822Rw39fx762MaV7Yy86jXGTC7sCDy",
+        "password": "password",
+        "username": "demo"
+      }
+    }
+  },
+  "port": 5000,
+  "scheduling": {
+    "frequency": "daily",
+    "type": "cron"
+  },
+  "secret_key": "86e6caf7ee9a1505fda05fccfeda770f4f317bc9b16a2cee1d3b2711ef92a934",
+  "verify_emails": false
+}

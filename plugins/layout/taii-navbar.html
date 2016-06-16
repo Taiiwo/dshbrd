@@ -1,0 +1,110 @@
+<dom-module id="taii-navbar" attributes="colour title">
+    <template>
+        <style>
+            nav {
+              padding-left: 10px;
+            }
+            nav img {
+              height: 65px;
+            }
+            #user-div {
+                cursor: pointer;
+            }
+        </style>
+        <nav class$="{{colour}}">
+          <div class="nav-wrapper">
+            <a href="#/" class="brand-logo">{{title}}</a>
+            <a href="#" data-activates="side-bar" class="button-collapse"><i class="material-icons">menu</i></a>
+            <ul class="right hide-on-med-and-down nav-menu">
+                <content></content>
+            </ul>
+            <ul class="side-nav nav-menu" id="side-bar">
+            </ul>
+          </div>
+        </nav>
+    </template>
+</dom-module>
+<script>
+    Polymer({
+        is: "taii-navbar",
+        attached: function(){
+            $(".button-collapse").sideNav({
+                closeOnClick: true
+            });
+            this.check_auth();
+            // copy content to sidebar
+            var contents = $($('.nav-menu')[0]).html();
+            $($('.nav-menu')[1]).html(contents);
+            var self = this;
+            $(window).on('auth_changed', function(){
+                self.check_auth();
+            })
+        },
+        check_auth: function() {
+            if (typeof window.user_data == 'undefined') {
+                this.navbar_mode('unauthed');
+            }
+            else {
+                this.navbar_mode('authed');
+            }
+        },
+        append_button: function (id, text, action, auth){
+            if (typeof(action) == 'string'){
+                action = function(){
+                    window.location = action;
+                }
+            }
+            var li = $('<li/>').append(
+                $('<a/>')
+                    .attr('id', id)
+                    .text(text)
+                    .addClass('taii-navbar')
+                    .click(action)
+            );
+            if (typeof auth == 'undefined'){
+                $('.nav-menu').append(li);
+            }
+            else if (auth) {
+                $('.nav-menu span.auth').append(li);
+            }
+        },
+        navbar_mode: function(mode){
+            $('.nav-menu span.auth').empty();
+            if (mode == "unauthed"){
+                this.append_button('register-button', 'Register', function(){
+                    site.route('/register');
+                }, true);
+                this.append_button('login_button', 'Login', function(){
+                    site.route('/login');
+                }, true);
+            }
+            else if (mode = 'authed') {
+                // add welcome message
+                this.append_button(
+                    'user-div',
+                    "Hello, " + user_data.display_name,
+                    function() {
+                        site.logout();
+                    },
+                    true
+                );
+                var orig_width = $('#user-div').width();
+                // on mouse over, show logout button
+                $('#user-div')
+                  .mouseover(function(){
+                    $('#user-div')
+                      .text("Logout")
+                      .width(orig_width)
+                      .css({'text-align': 'center'})
+                    ;
+                  })
+                  .mouseout(function(){
+                    $('#user-div')
+                      .text("Hello, " + user_data.display_name)
+                    ;
+                  })
+                ;
+            }
+        }
+    })
+</script>
