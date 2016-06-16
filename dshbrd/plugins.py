@@ -4,7 +4,7 @@ import importlib
 import pip
 import sys
 
-from flask import send_from_directory, abort, render_template
+from flask import send_from_directory, abort, render_template, render_template_string
 
 from . import app, config, save_config, site, merge_dicts, root_logger
 
@@ -137,8 +137,18 @@ def plugin_file_resolver(plugin, path):
     plugin = plugin.lower()
     try:
         if config["plugins"][plugin]["enabled"]:
-            # serve from root dir, not flasks root
+            # serve from plugin root dir, not flasks root
             f_dir = os.path.join(os.path.abspath("."), "plugins", plugin)
+
+
+            if "templates" in plugins[plugin] and path in plugins[plugin]["templates"]:
+                f_path = os.path.join(f_dir, path)
+                if f_path.startswith(f_dir):
+                    return render_template_string(
+                        open(f_path).read(),
+                        config=config["plugins"][plugin],
+                        plugin=plugins[plugin]
+                    )
 
             # this appears to be secure. might need more testing.
             return send_from_directory(f_dir, path)
