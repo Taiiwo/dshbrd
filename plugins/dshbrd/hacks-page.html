@@ -4,7 +4,7 @@
     <template>
         <style>
         </style>
-          <dshbrd-head colour="#e00032" title="{{ config.title }}"></dshbrd-head>
+          <dshbrd-head title="{{ config.title }}" colour="#e00032"></dshbrd-head>
           <dshbrd-grid></dshbrd-grid>
           <version-bar stage="alpha" link="{{ get_version().link }}" version="{{ get_version().version }}" colour="#e00032"></version-bar>
     </template>
@@ -17,7 +17,7 @@
             for (var i = 0; i < data.cards.length; i++) {
               $("head").append(
                 $("<link>")
-                  .attr("href", "/plugins/dshbrd/cards/" + data.cards[i] + "/main.html")
+                  .attr("href", "/plugins/dshbrd/cards/" + data.cards[i] + "/" + data.cards[i] + ".html")
                   .attr("rel", "import")
               );
               var card = $("<" + data.cards[i] + " />").addClass("card");
