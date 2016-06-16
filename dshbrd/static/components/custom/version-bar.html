@@ -1,8 +1,7 @@
 <dom-module id="version-bar">
 	<template>
 		<style>
-			#version-bar {
-				background-color: #e00032;
+			#versionBar {
 				color: #ffffff;
 				font-family: 'Roboto';
 				width: 100%;
@@ -14,17 +13,23 @@
 				font-size: 14px;
 			}
 
-			#version-bar p {
+			#versionBar p {
 				font-weight: 100;
 			}
 		</style>
-		<div id="version-bar">
-			<p>This site is still in alpha stages. Current version: {{ version }}</p>
+		<div id="versionBar">
+			<p>This site is still in {{stage}} stages. Current version: {{ version }}</p>
 		</div>
 	</template>
 </dom-module>
 <script>
 	Polymer({
-		is: "version-bar"
+		is: "version-bar",
+		properties: {
+			colour: String
+		},
+		ready: function() {
+			this.$.versionBar.style.backgroundColor = this.colour;
+		}
 	});
 </script>

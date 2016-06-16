@@ -1,9 +1,8 @@
 <dom-module id="dshbrd-head">
 	<template>
 		<style>
-			#top-bar {
+			#topBar {
 				height: 150px;
-				background-color: #e00032;
 			}
 
 			.logo {
@@ -22,7 +21,7 @@
 				max-width: 800px;
 			}
 		</style>
-		<div id="top-bar">
+		<div id="topBar">
 			<h1 class="logo">{{ title }}</h1>
 			<search-bar></search-bar>
 		</div>
@@ -30,6 +29,12 @@
 </dom-module>
 <script>
 	Polymer({
-		is: "dshbrd-head"
+		is: "dshbrd-head",
+		properties: {
+			colour: String
+		},
+		ready: function() {
+			this.$.topBar.style.backgroundColor = this.colour;
+		}
 	});
 </script>
