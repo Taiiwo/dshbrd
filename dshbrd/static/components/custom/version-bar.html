@@ -16,9 +16,19 @@
 			#versionBar p {
 				font-weight: 100;
 			}
+
+			#versionBar a {
+	            color: #ffffff;
+	            display: block;
+	            font-weight: 900;
+          	}
+
+          	#versionBar a:hover {
+            	opacity: 0.8;
+          	}
 		</style>
 		<div id="versionBar">
-			<p>This site is still in {{stage}} stages. Current version: {{ version }}</p>
+			<p>This site is still in {{stage}} stages. Current version: </p><a href="{{ link }}">{{ version }}</a>
 		</div>
 	</template>
 </dom-module>
