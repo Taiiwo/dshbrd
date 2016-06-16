@@ -21,6 +21,9 @@
     "blog": {
       "enabled": false
     },
+    "dshbrd": {
+      "enabled": false
+    },
     "hackpaml": {
       "enabled": true
     },
