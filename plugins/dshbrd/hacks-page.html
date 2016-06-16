@@ -5,8 +5,8 @@
         <style>
         </style>
           <dshbrd-head colour="#e00032" title="{{ config.title }}"></dshbrd-head>
-          <dshbrd-grid id="grid"></dshbrd-grid>
-          <version-bar colour="#e00032" stage="alpha" link="{{ get_version().link }}" version="{{ get_version().version }}"></version-bar>
+          <dshbrd-grid></dshbrd-grid>
+          <version-bar stage="alpha" link="{{ get_version().link }}" version="{{ get_version().version }}" colour="#e00032"></version-bar>
     </template>
 </dom-module>
 <script>
@@ -16,7 +16,7 @@
           dshbrd.get_cards(function(data) {
             for (var i = 0; i < data.cards.length; i++) {
               var card = $("<" + data.cards[i] + "/>").addClass("card")
-              $('dshbrd-grid #grid').append(card)
+              $('dshbrd-grid').append(card)
             }
           })
         }

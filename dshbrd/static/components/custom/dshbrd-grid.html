@@ -3,7 +3,7 @@
 <dom-module id="dshbrd-grid">
     <template>
         <style>
-            #grid {
+            :host {
                 display: flex;
                 display: -ms-flex;
                 display: -webkit-flex;
@@ -12,17 +12,10 @@
                 flex-wrap: wrap;
             }
         </style>
-        <div id="grid"></div>
     </template>
 </dom-module>
 <script>
   Polymer({
-    is: "dshbrd-grid",
-    ready: function(){
-      this.grid = document.querySelector("#grid")
-    },
-    append_grid: function(element){
-        this.grid.append(element)
-    }
+    is: "dshbrd-grid"
   });
 </script>
