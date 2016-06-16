@@ -2,7 +2,7 @@
   "allow_config_writing": true,
   "allow_login_with_email": false,
   "bind_addr": "0.0.0.0",
-  "debug": false,
+  "debug": true,
   "emails_are_unique": true,
   "force_email_submission": false,
   "mongo": {
@@ -12,31 +12,14 @@
     "port": 27017
   },
   "plugins": {
-    "admin": {
-      "enabled": true
-    },
     "auth": {
       "enabled": true
     },
-    "blog": {
-      "enabled": false
-    },
     "dshbrd": {
-      "enabled": false
-    },
-    "hackpaml": {
       "enabled": true
     },
     "layout": {
       "enabled": true
-    },
-    "payment": {
-      "enabled": false,
-      "nmi": {
-        "api_key": "2F822Rw39fx762MaV7Yy86jXGTC7sCDy",
-        "password": "password",
-        "username": "demo"
-      }
     }
   },
   "port": 5000,
@@ -44,6 +27,6 @@
     "frequency": "daily",
     "type": "cron"
   },
-  "secret_key": "ce80f1e4d424da154932dc8ecbd9665c24a337fb6f0b11d9b2052b15b984fd54",
+  "secret_key": "e1640a4fcc1717fa08f5f4e38647c96e31850d76a29fc4be5b46265e1d99d3fc",
   "verify_emails": true
 }
