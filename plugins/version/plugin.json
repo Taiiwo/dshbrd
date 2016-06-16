@@ -1,0 +1,8 @@
+{
+  "author": "Mitame",
+  "description": "Get the current git commit hash and link to the website",
+  "website": "https://github.com/Taiiwo/dshbrd",
+  "depends": [],
+  "conflicts": [],
+  "datachests": []
+}
