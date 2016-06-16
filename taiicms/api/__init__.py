@@ -1,5 +1,5 @@
 from flask import make_response, jsonify
-from flask.ext.cors import CORS
+from flask_cors import CORS
 
 from .. import app, util, config, root_logger
 
