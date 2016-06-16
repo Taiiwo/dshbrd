@@ -4,6 +4,8 @@
     <template>
         <style>
             :host {
+                width: 100%;
+                height: 100%;
                 margin-top: 50px;
                 display: block;
             }
@@ -29,12 +31,14 @@
                 itemSelector: '.card',
                 gutter: 10
             });
+
+            setTimeout(function() {
+                pckry.layout();
+            }, 1000)
         },
         addCard: function(card) {
             $("#cards").append(card[0])
             pckry.appended(card[0])
-
-            pckry.layout();
         }
     });
 </script>
