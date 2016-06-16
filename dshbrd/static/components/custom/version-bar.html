@@ -1,0 +1,30 @@
+<dom-module id="version-bar">
+	<template>
+		<style>
+			#version-bar {
+				background-color: #e00032;
+				color: #ffffff;
+				font-family: 'Roboto';
+				width: 100%;
+				text-align: center;
+				padding: 10px 0px;
+				position: absolute;
+				bottom: 0;
+				z-index: 1000;
+				font-size: 14px;
+			}
+
+			#version-bar p {
+				font-weight: 100;
+			}
+		</style>
+		<div id="version-bar">
+			<p>This site is still in alpha stages. Current version: {{ version }}</p>
+		</div>
+	</template>
+</dom-module>
+<script>
+	Polymer({
+		is: "version-bar"
+	});
+</script>
