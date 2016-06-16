@@ -106,7 +106,7 @@ def load_plugin(plugin_name):
                         return
 
         plugin["import"] = getattr(__import__("plugins.%s" % plugin_name), plugin_name)
-        plugin["import"].main(plugin["config"])
+        plugin["import"].main(app, plugin["config"])
 
     if "pages" in plugin:
         for path, page in plugin["pages"].items():
