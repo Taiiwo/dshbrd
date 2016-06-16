@@ -13,7 +13,7 @@ from pymongo.errors import DuplicateKeyError
 
 from . import app, config, socket
 from flask_socketio import emit, send
-from .api import util, make_error_response, make_success_response
+from .api import util, make_error_response, make_success_response, make_error
 
 # SocketIO handlers that allow limited database access to the front end
 
