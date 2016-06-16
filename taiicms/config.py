@@ -19,13 +19,10 @@ default_config = {
     "debug": False,
 
     "plugins": {
-        "admin": {
-            "enabled": True
-        },
         "auth": {
             "enabled": True
         },
-        "hackpaml": {
+        "dshbrd": {
             "enabled": True
         },
         "layout": {
