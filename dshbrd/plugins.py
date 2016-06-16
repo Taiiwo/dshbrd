@@ -161,9 +161,11 @@ def plugin_file_resolver(plugin, path):
                         global_config=config,
                         plugin=plugins[plugin]
                     )
-
-            # this appears to be secure. might need more testing.
-            return send_from_directory(f_dir, path)
+                else:
+                    abort(500)
+            else:
+                # this appears to be secure. might need more testing.
+                return send_from_directory(f_dir, path)
     except KeyError:
         abort(404)
 
