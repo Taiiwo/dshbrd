@@ -105,6 +105,13 @@ def load_plugin(plugin_name):
                         save_config()
                         return
 
+        for dep in plugin["depends"]:
+            if not config["plugins"][dep]["enabled"]:
+                logger.warn("Enabling '%s' as a requirement of '%s'." % (dep, plugin["name"]))
+                config["plugins"][dep]["enabled"] = True
+                save_config()
+                load_plugin(dep)
+
         plugin["import"] = getattr(__import__("plugins.%s" % plugin_name), plugin_name)
         plugin["import"].main(app, plugin["config"])
 
