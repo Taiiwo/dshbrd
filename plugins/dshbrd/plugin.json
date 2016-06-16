@@ -1,0 +1,13 @@
+{
+  "author": "Taiiwo",
+  "description": "A configurable dashboard for hackathons",
+  "website": "https://github.com/Taiiwo/HackPanel",
+  "depends": ["layout"],
+  "conflicts": [],
+  "datachests": [],
+  "pages": {
+    "/**/": {
+      "file_path": "hacks-page.html"
+    }
+  }
+}
