@@ -1,0 +1,67 @@
+<dom-module id="search-bar">
+	<template>
+		<style>
+			#searchBox {
+				background-color: #ffffff;
+				box-shadow: 0px 2px 3px #7f8c8d;
+			}
+
+			.search-items {
+				box-shadow: 0px 2px 3px #7f8c8d;
+				position: relative;
+				z-index: 1000;
+			}
+
+			#search {
+				width: 100%;
+				height: 35px;
+				font-size: 20px;
+				font-family: 'Roboto', sans-serif;
+				border: none;
+				color: #7f8c8d;
+				transition: box-shadow .2s;
+				-moz-transition: box-shadow .2s;
+				-webkit-transition: box-shadow .2s;
+				outline: none;
+			}
+
+			.searchResult {
+				width: 100%;
+				padding: 15px 0px;
+				color: #333333;
+				font-family: 'Roboto', sans-serif;
+				background-color: #ffffff;
+				text-align: center;
+			}
+
+			.searchResult:hover {
+				background-color: #efefef;
+			}
+
+			.searchResult h2 {
+				font-weight: bold;
+			}
+
+			.searchResult span {
+				padding-right: 10px;
+			}
+
+			.searchResult:hover {
+				cursor: pointer;
+			}
+		</style>
+		<form id="searchBox" action="" method="GET">
+			<input id="search" placeholder="search for an event" type="search" name="search" autocomplete="off">
+		</form>
+		<div class="items-container">
+			<div class="search-items">
+				<!-- EVENTS ADDED HERE -->
+			</div>
+		</div>
+	</template>
+</dom-module>
+<script>
+	Polymer({
+		is: "search-bar"
+	});
+</script>
