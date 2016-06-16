@@ -1,18 +1,16 @@
-TaiiCMS - The Non-Standard Content Management System
-====================================================
+Dshbrd
+=======
 
-TaiiCMS is a content management system written using `flask` and
-`mongodb` in Python and JavaScript. It provides a simple way to develop and manage a
-webpage. TaiiCMS attempts to provide the basic features required by most
-projects in a non-intrusive, all front end way.
+Dshbrd is a configurable dashboard for events written using `flask` and
+`mongodb` in Python and JavaScript.
 
-TaiiCMS is split into the core, and the plugins. The plugins add features and
+Dshbrd is split into the core, and the plugins. The plugins add features and
 functionality to you webpage, whereas the core provide the procedures for
 loading the plugins efficiently.
 
 Plugins
 -------
-If you're interested in adding features to TaiiCMS, you're most likely going to
+If you're interested in adding features to Dshbrd, you're most likely going to
 be developing them in the form of plugins. Each plugin has it's own folder in
 the `/plugins` folder, and within it are the various files that provide the
 functionality to your plugin. Below is a breakdown of each file, and what it is
@@ -62,9 +60,9 @@ The only reason to use this file is if you're dealing with some other method of
 authentication, such as some kind of external exchange (money, bitcoin, etc).
 
 ## Polymer Elements - HTML format explained
-TaiiCMS uses a webcomponent library called Polymer. Polymer allows you to create
+Dshbrd uses a webcomponent library called Polymer. Polymer allows you to create
 your own HTML elements that will be expanded when they are 'attached' to the
-page. TaiiCMS uses these elements to load in pages dynamically.
+page. Dshbrd uses these elements to load in pages dynamically.
 
 ### Example:
 
@@ -142,12 +140,9 @@ plugin.json! Don't forget! Don't forget the other one, too! (below) -->
 </script>
 ```
 
-The above code will generate a page that looks something like this:
-![Screenshot](http://i.imgur.com/KmRw3Tm.png)
-
 Provided APIs
 -------------
-TaiiCMS provides several HTTP APIs that can be used from your elements via AJAX,
+Dshbrd provides several HTTP APIs that can be used from your elements via AJAX,
 or through our complete set of API wrappers.
 
 ## site.js
@@ -174,18 +169,6 @@ Returns `true` if the user is authed, and `false` if the user has not yet
 authenitcated. Note: API requests that require authentication will simply not
 work without it. This function is just to stop the user from getting access
 denied responses.
-
-### site.notify(title:string, body:html, buttons:array[array[text:string, colour:string, callback:function], ...])
-Used to setup a modal notification. Think of it like a prettier `prompt` from
-JS. The modal uses `title` as the title, `body` as the body of the modal, and
-each button in the `buttons` array will be placed at the bottom. Where `button`
-is each element of `buttons`, `button[0]` is the text inside the button,
-`button[1]` is colour of the button(Just applies it as a class and Materialize
-does the rest), and `button[2]` is the callback function for when the button is
-clicked.
-
-### site.notify_toggle()
-Toggles the visibility of the modal defined above
 
 ### site.auth(userID:string, session:string, callback:function)
 Authenticates the user with the core and sends the user information to the
