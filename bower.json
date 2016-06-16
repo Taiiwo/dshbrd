@@ -13,6 +13,7 @@
   ],
   "dependencies": {
     "app-router": "^2.6.1",
-    "polymer": "^1.5.0"
+    "polymer": "^1.5.0",
+    "paper-material": "^1.0.6"
   }
 }
