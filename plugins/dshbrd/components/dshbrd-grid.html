@@ -1,21 +1,40 @@
-<script type="text/javascript" src="/static/js/freewall.js"></script>
+<script type="text/javascript" src="/static/js/packery.min.js"></script>
 
 <dom-module id="dshbrd-grid">
     <template>
         <style>
             :host {
-                display: flex;
-                display: -ms-flex;
-                display: -webkit-flex;
-                justify-content: center;
                 margin-top: 50px;
-                flex-wrap: wrap;
+                display: block;
+            }
+
+            #cards {
+                width: 100%;
+                height: 100%;
             }
         </style>
+
+        <div id="cards">
+            
+        </div>
     </template>
 </dom-module>
 <script>
-  Polymer({
-    is: "dshbrd-grid"
-  });
+    var pckry;
+
+    Polymer({
+        is: "dshbrd-grid",
+        ready: function() {
+            pckry = new Packery(this.$.cards, {
+                itemSelector: '.card',
+                gutter: 10
+            });
+        },
+        addCard: function(card) {
+            $("#cards").append(card[0])
+            pckry.appended(card[0])
+
+            pckry.layout();
+        }
+    });
 </script>

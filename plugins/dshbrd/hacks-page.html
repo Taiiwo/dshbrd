@@ -21,7 +21,7 @@
                   .attr("rel", "import")
               );
               var card = $("<" + data.cards[i] + " />").addClass("card");
-              $('dshbrd-grid').append(card);
+              document.querySelector('dshbrd-grid').addCard(card);
             }
           });
         }
