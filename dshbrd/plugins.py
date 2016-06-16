@@ -147,6 +147,7 @@ def plugin_file_resolver(plugin, path):
                     return render_template_string(
                         open(f_path).read(),
                         config=config["plugins"][plugin],
+                        global_config=config,
                         plugin=plugins[plugin]
                     )
 
