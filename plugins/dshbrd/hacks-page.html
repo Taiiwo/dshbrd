@@ -15,10 +15,15 @@
         ready: function() {
           dshbrd.get_cards(function(data) {
             for (var i = 0; i < data.cards.length; i++) {
-              var card = $("<" + data.cards[i] + "/>").addClass("card")
-              $('dshbrd-grid').append(card)
+              $("head").append(
+                $("<link>")
+                  .attr("href", "/plugins/dshbrd/cards/" + data.cards[i] + "/main.html")
+                  .attr("rel", "import")
+              );
+              var card = $("<" + data.cards[i] + " />").addClass("card");
+              $('dshbrd-grid').append(card);
             }
-          })
+          });
         }
     });
 </script>
