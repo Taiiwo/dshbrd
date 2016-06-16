@@ -1,5 +1,5 @@
 {
-  "link_format_string": "https://github.com/Taiiwo/dshbrd/commit/{hash}",
-  "use_git": true,
-  "fallback_version": "UNKNOWN"
+  	"link_format_string": "https://github.com/Taiiwo/dshbrd/commit/{hash}",
+  	"use_git": true,
+  	"fallback_version": "UNKNOWN"
 }

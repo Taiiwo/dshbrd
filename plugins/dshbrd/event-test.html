@@ -11,7 +11,7 @@
     Polymer({
         is: "event-test",
         attached: function() {
-          function DshBrd() {
+          function Dshbrd() {
             this.get_cards = function(callback){
               site.plugin_api('dshbrd', 'get-cards', {}, callback);
             }
@@ -49,7 +49,7 @@
               });
             }
           }
-          window.dshbrd = new DshBrd();
+          window.dshbrd = new Dshbrd();
         }
     });
 </script>

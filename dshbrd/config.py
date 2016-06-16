@@ -27,6 +27,9 @@ default_config = {
         },
         "layout": {
             "enabled": True
+        },
+        "version": {
+            "enabled": True
         }
     },
 
