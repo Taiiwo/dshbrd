@@ -1,8 +1,4 @@
 function Site() {
-    // Send a toast notification.
-    this.toast = function(message){
-        Materialize.toast(message, 4000);
-    }
     // Make a call to the api.
     this.api = function(action, data, callback){
         var baseURL = document.location.origin + "/api/1/";
@@ -128,7 +124,7 @@ function Site() {
                     // set a global variable for the users details
                     window.user_data = data.user_data;
                     // notify the user that the login was successful.
-                    site.toast('Login Successful!');
+                    console.log('Login Successful!');
                     // forward the user to the homepage
                     site.route('/');
                     if (success) {
@@ -143,7 +139,7 @@ function Site() {
                       error_list.push(error.name);
                     }
                     console.log("Recieved errors: " + error_list.join(', '));
-                    site.toast(data.errors[0].details);
+                    console.log(data.errors[0].details);
                     if (fail) {
                         fail();
                     }
@@ -156,7 +152,7 @@ function Site() {
         Cookies.remove('user_id');
         user_data = undefined;
         $(window).trigger('auth_changed');
-        site.toast('Logged out.');
+        console.log('Logged out.');
     }
 }
 window.$$ = document.querySelector;
@@ -167,7 +163,7 @@ if (Cookies.get('session') && Cookies.get('user_id')){
         if (data.success) {
             window.user_data = data.user_data;
         } else {
-            site.toast("Session Expired.");
+            console.log("Session Expired.");
             Cookies.remove('session');
             Cookies.remove('user_id');
         }
