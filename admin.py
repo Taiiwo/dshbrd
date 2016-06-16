@@ -2,8 +2,8 @@
 import os
 import sys
 import json
-from taiicms import util
-from taiicms import config
+from dshbrd import util
+from dshbrd import config
 
 util = util.Util(config['mongo'])
 

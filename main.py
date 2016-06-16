@@ -1,4 +1,4 @@
-from taiicms import app, socket, config
+from dshbrd import app, socket, config
 
 
 def main():
