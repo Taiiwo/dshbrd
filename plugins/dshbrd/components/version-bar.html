@@ -1,46 +1,41 @@
 <dom-module id="version-bar">
-  <template>
-    <style>
-      #versionBar {
-        color: #ffffff;
-        font-family: 'Roboto';
-        width: 100%;
-        text-align: center;
-        padding: 10px 0px;
-        position: fixed;
-        bottom: 0;
-        z-index: 1000;
-        font-size: 14px;
-      }
+	<template>
+		<style>
+			#versionBar {
+				background-color: rgba(224, 0, 50, 0.8);
+				font-family: 'Roboto';
+				text-align: center;
+				padding: 10px 0px;
+				position: fixed;
+				font-size: 14px;
+				z-index: 1000;
+				color: white;
+				width: 100%;
+				bottom: 0;
+			}
 
-      #versionBar p {
-        font-weight: 100;
-        display: inline;
-      }
+			#versionBar p {
+				font-weight: 100;
+				display: inline;
+			}
 
-      #versionBar a {
-              color: #ffffff;
-              display: inline;
-              font-weight: 900;
-            }
+			#versionBar a {
+				color: #ffffff;
+				display: inline;
+				font-weight: 900;
+			}
 
-            #versionBar a:hover {
-              opacity: 0.8;
-            }
-    </style>
-    <div id="versionBar">
-      <p>This site is still in {{stage}} stages. Current version: </p><a href="{{ link }}" target="_blank">{{ version }}</a>
-    </div>
-  </template>
+			#versionBar a:hover {
+				
+			}
+		</style>
+		<div id="versionBar">
+			<p>This site is still in {{stage}} stages. Current version: </p><a href="{{ link }}" target="_blank">{{ version }}</a>
+		</div>
+	</template>
 </dom-module>
 <script>
-  Polymer({
-    is: "version-bar",
-    properties: {
-      colour: String
-    },
-    ready: function() {
-      this.$.versionBar.style.backgroundColor = this.colour;
-    }
-  });
+	Polymer({
+		is: "version-bar"
+	});
 </script>

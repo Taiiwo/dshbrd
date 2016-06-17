@@ -5,12 +5,11 @@
         <style>
             :host {
                 display: block;
-                margin-top: 50px;
+                margin-top: 100px;
             }
 
             #grid {
-                max-width: 1000px;
-                margin: 0 auto;
+                margin: 0px 20px;
             }
         </style>
         <div id="grid"></div>
@@ -36,10 +35,12 @@
             	wall.fitWidth();
             }
         });
+
+        wall.fitWidth();
+        wall.refresh();
     },
     addCard: function(card) {
     	this.wall.appendBlock(card[0]);
-    	$(window).trigger("resize");
     }
   });
 </script>

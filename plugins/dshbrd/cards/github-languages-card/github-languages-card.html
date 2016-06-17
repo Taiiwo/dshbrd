@@ -5,7 +5,7 @@
     </style>
     <dshbrd-card>
       <h2>Github Languages</h2>
-      <div id="gh-lang-chart-div"></div>
+      <div id="chart"></div>
     </dshbrd-card>
   </template>
 </dom-module>
@@ -23,11 +23,11 @@
       dataTable.addColumn("string", "Language");
       dataTable.addColumn("number", "Count")
 
-      var chart = new google.visualization.PieChart($("#gh-lang-chart-div")[0]);
+      var chart = new google.visualization.PieChart($("#chart")[0]);
       var options = {
         "Title": "Github Languages",
-        "width": 400,
-        "height": 300
+        "width": 320,
+        "height": 320
       }
       $.get(
         "https://api.github.com/search/repositories",
