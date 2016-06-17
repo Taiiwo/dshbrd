@@ -4,18 +4,42 @@
     <template>
         <style>
             :host {
-                display: flex;
-                display: -ms-flex;
-                display: -webkit-flex;
-                justify-content: center;
+                display: block;
                 margin-top: 50px;
-                flex-wrap: wrap;
+            }
+
+            #grid {
+                max-width: 1000px;
+                margin: 0 auto;
             }
         </style>
+        <div id="grid"></div>
     </template>
 </dom-module>
 <script>
   Polymer({
-    is: "dshbrd-grid"
+    is: "dshbrd-grid",
+    properties: {
+    	width: Number,
+    	height: Number
+    },
+    attached: function() {
+        var wall = new Freewall("#grid");
+        this.wall = wall
+       	wall.reset({
+            selector: '.card',
+            animate: true,
+            draggable: true,
+            cellW: this.width,
+            cellH: this.height,
+            onResize: function() {
+            	wall.fitWidth();
+            }
+        });
+    },
+    addCard: function(card) {
+    	this.wall.appendBlock(card[0]);
+    	$(window).trigger("resize");
+    }
   });
 </script>

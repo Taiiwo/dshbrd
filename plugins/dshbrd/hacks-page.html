@@ -5,7 +5,7 @@
         <style>
         </style>
           <dshbrd-head title="{{ config.title }}" colour="#e00032"></dshbrd-head>
-          <dshbrd-grid></dshbrd-grid>
+          <dshbrd-grid width="320" height="320"></dshbrd-grid>
           <version-bar stage="alpha" link="{{ get_version().link }}" version="{{ get_version().version }}" colour="#e00032"></version-bar>
     </template>
 </dom-module>
@@ -19,7 +19,7 @@
               self.importHref("/plugins/dshbrd/cards/" + data.cards[i] + "/" + data.cards[i] + ".html")
 
               var card = $("<" + data.cards[i] + " />").addClass("card");
-              $('dshbrd-grid').append(card);
+              document.querySelector('dshbrd-grid').addCard(card);
             }
           });
         }
