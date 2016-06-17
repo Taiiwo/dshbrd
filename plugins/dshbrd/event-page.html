@@ -1,4 +1,10 @@
 <dom-module id="event-page">
+    <style>
+      :host {
+        position: relative;
+        top: 100px;
+      }
+    </style>
     <template>
       <dshbrd-grid width="320" height="320"></dshbrd-grid>
       <version-bar stage="alpha" link="{{ get_version().link }}" version="{{ get_version().version }}"></version-bar>

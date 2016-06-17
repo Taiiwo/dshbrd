@@ -1,25 +1,57 @@
 <dom-module id="login-page">
     <template>
         <style>
-            
+            :host {
+              height: 100%;
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              align-items: center;
+            }
+
+            #login {
+              width: 600px;
+            }
+
+            h2 {
+              color: rgba(224, 0, 50, 0.8);
+              font-size: 42pt;
+            }
+
+            #login-form {
+              display: flex;
+              display: -ms-flex;
+              display: -webkit-flex;
+              flex-direction: column;
+            }
+
+            paper-button {
+              width: 200px;
+              background-color: rgba(224, 0, 50, 0.8);
+              margin: 20px 0 !important;
+              align-self: flex-end;
+              color: white;
+            }
+
+            paper-input {
+              --paper-input-container-focus-color: rgba(224, 0, 50, 0.8);
+            }
         </style>
+        <div id="login">
+
           <h2>Login</h2>
           <form id="login-form" action="/api/1/register" method="POST">
-            <label for="username">Username: </label>
-            <input id="username" type="text">
-            <label for="password">Password: </label>
-            <input id="password" type="password">
-            <paper-button raised id="login">Login</paper-button>
+            <paper-input label="Username" type="text"></paper-input>
+            <paper-input label="Password" type="password"></paper-input>
+            <paper-button raised id="login-button">Login</paper-button>
           </form>
+        </div>
     </template>
 </dom-module>
 <script>
     Polymer({
         is: "login-page",
         attached: function() {
-            $('#register').click(function() {
-                site.route('/register');
-            });
             if (site.userAuthed()){
                 // already logged in, you don't need to be here
                 site.route('/');
