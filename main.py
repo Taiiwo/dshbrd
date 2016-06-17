@@ -1,4 +1,4 @@
-from dshbrd import app, socket, config
+from cms import app, socket, config
 
 
 def main():

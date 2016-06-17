@@ -2,8 +2,8 @@
 import os
 import sys
 import json
-from dshbrd import util
-from dshbrd import config
+from cms import util
+from cms import config
 
 util = util.Util(config['mongo'])
 

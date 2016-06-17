@@ -20,6 +20,7 @@
                   .attr("href", "/plugins/dshbrd/cards/" + data.cards[i] + "/" + data.cards[i] + ".html")
                   .attr("rel", "import")
               );
+
               var card = $("<" + data.cards[i] + " />").addClass("card");
               $('dshbrd-grid').append(card);
             }
