@@ -13,13 +13,10 @@
     Polymer({
         is: "hacks-page",
         ready: function() {
+          var self = this;
           dshbrd.get_cards(function(data) {
             for (var i = 0; i < data.cards.length; i++) {
-              $("head").append(
-                $("<link>")
-                  .attr("href", "/plugins/dshbrd/cards/" + data.cards[i] + "/" + data.cards[i] + ".html")
-                  .attr("rel", "import")
-              );
+              self.importHref("/plugins/dshbrd/cards/" + data.cards[i] + "/" + data.cards[i] + ".html")
 
               var card = $("<" + data.cards[i] + " />").addClass("card");
               $('dshbrd-grid').append(card);
