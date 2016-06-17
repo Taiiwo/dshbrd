@@ -162,8 +162,11 @@ def get_safe_user(user):
             safe_user[key] = user[key]
         return safe_user
     else:
-        user = util.get_collection("users", db=util.config["auth_db"]).find_one({"user": user})
-        return user
+        user_data = util.get_collection("users", db=util.config["auth_db"]).find_one({"user": user})
+        if user:
+            return get_safe_user(user_data)
+        else:
+            return None
 
 def create_session(user_data):
     # create a salt so the same session key is only valid once
