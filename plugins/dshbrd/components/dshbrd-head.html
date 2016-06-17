@@ -1,40 +1,40 @@
 <dom-module id="dshbrd-head">
-	<template>
-		<style>
-			#topBar {
-				height: 150px;
-			}
+  <template>
+    <style>
+      #topBar {
+        height: 150px;
+      }
 
-			.logo {
-				font-family: 'Roboto', sans-serif;
-				font-weight: normal;
-				color: #ffffff;
-				text-align: center;
-				padding: 28px;
-				font-size: 64px;
-			}
+      .logo {
+        font-family: 'Roboto', sans-serif;
+        font-weight: normal;
+        color: #ffffff;
+        text-align: center;
+        padding: 28px;
+        font-size: 64px;
+      }
 
-			search-bar {
-				margin: 0 auto;
-				display: block;
-				float: none;
-				max-width: 800px;
-			}
-		</style>
-		<div id="topBar">
-			<h1 class="logo">{{ title }}</h1>
-			<search-bar></search-bar>
-		</div>
-	</template>
+      search-bar {
+        margin: 0 auto;
+        display: block;
+        float: none;
+        max-width: 800px;
+      }
+    </style>
+    <div id="topBar">
+      <h1 class="logo">{{ title }}</h1>
+      <search-bar></search-bar>
+    </div>
+  </template>
 </dom-module>
 <script>
-	Polymer({
-		is: "dshbrd-head",
-		properties: {
-			colour: String
-		},
-		ready: function() {
-			this.$.topBar.style.backgroundColor = this.colour;
-		}
-	});
+  Polymer({
+    is: "dshbrd-head",
+    properties: {
+      colour: String
+    },
+    ready: function() {
+      this.$.topBar.style.backgroundColor = this.colour;
+    }
+  });
 </script>

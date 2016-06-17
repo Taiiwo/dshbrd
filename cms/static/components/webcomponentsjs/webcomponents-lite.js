@@ -165,7 +165,7 @@
           this._fragment = "#";
           state = "fragment";
         } else {
-          if (EOF != c && "	" != c && "\n" != c && "\r" != c) {
+          if (EOF != c && "  " != c && "\n" != c && "\r" != c) {
             this._schemeData += percentEscape(c);
           }
         }
@@ -296,7 +296,7 @@
           seenAt = true;
           for (var i = 0; i < buffer.length; i++) {
             var cp = buffer[i];
-            if ("	" == cp || "\n" == cp || "\r" == cp) {
+            if ("  " == cp || "\n" == cp || "\r" == cp) {
               err("Invalid whitespace in authority.");
               continue;
             }
@@ -330,7 +330,7 @@
             state = "relative path start";
           }
           continue;
-        } else if ("	" == c || "\n" == c || "\r" == c) {
+        } else if ("  " == c || "\n" == c || "\r" == c) {
           err("Invalid whitespace in file host.");
         } else {
           buffer += c;
@@ -354,7 +354,7 @@
             break loop;
           }
           continue;
-        } else if ("	" != c && "\n" != c && "\r" != c) {
+        } else if ("  " != c && "\n" != c && "\r" != c) {
           if ("[" == c) {
             seenBracket = true;
           } else if ("]" == c) {
@@ -382,7 +382,7 @@
           }
           state = "relative path start";
           continue;
-        } else if ("	" == c || "\n" == c || "\r" == c) {
+        } else if ("  " == c || "\n" == c || "\r" == c) {
           err("Invalid code point in port: " + c);
         } else {
           invalid.call(this);
@@ -427,7 +427,7 @@
             this._fragment = "#";
             state = "fragment";
           }
-        } else if ("	" != c && "\n" != c && "\r" != c) {
+        } else if ("  " != c && "\n" != c && "\r" != c) {
           buffer += percentEscape(c);
         }
         break;
@@ -436,13 +436,13 @@
         if (!stateOverride && "#" == c) {
           this._fragment = "#";
           state = "fragment";
-        } else if (EOF != c && "	" != c && "\n" != c && "\r" != c) {
+        } else if (EOF != c && "  " != c && "\n" != c && "\r" != c) {
           this._query += percentEscapeQuery(c);
         }
         break;
 
        case "fragment":
-        if (EOF != c && "	" != c && "\n" != c && "\r" != c) {
+        if (EOF != c && "  " != c && "\n" != c && "\r" != c) {
           this._fragment += c;
         }
         break;

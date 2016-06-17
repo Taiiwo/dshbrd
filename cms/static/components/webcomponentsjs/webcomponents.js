@@ -4656,7 +4656,7 @@ if (WebComponents.flags.shadow) {
         if (cssRules) {
           Array.prototype.forEach.call(cssRules, function(rule) {
             if (rule.selectorText && (rule.style && rule.style.cssText !== undefined)) {
-              cssText += this.scopeSelector(rule.selectorText, scopeSelector, this.strictStyling) + " {\n	";
+              cssText += this.scopeSelector(rule.selectorText, scopeSelector, this.strictStyling) + " {\n  ";
               cssText += this.propertiesFromRule(rule) + "\n}\n\n";
             } else if (rule.type === CSSRule.MEDIA_RULE) {
               cssText += "@media " + rule.media.mediaText + " {\n";
@@ -5055,7 +5055,7 @@ if (WebComponents.flags.shadow) {
           this._fragment = "#";
           state = "fragment";
         } else {
-          if (EOF != c && "	" != c && "\n" != c && "\r" != c) {
+          if (EOF != c && "  " != c && "\n" != c && "\r" != c) {
             this._schemeData += percentEscape(c);
           }
         }
@@ -5186,7 +5186,7 @@ if (WebComponents.flags.shadow) {
           seenAt = true;
           for (var i = 0; i < buffer.length; i++) {
             var cp = buffer[i];
-            if ("	" == cp || "\n" == cp || "\r" == cp) {
+            if ("  " == cp || "\n" == cp || "\r" == cp) {
               err("Invalid whitespace in authority.");
               continue;
             }
@@ -5220,7 +5220,7 @@ if (WebComponents.flags.shadow) {
             state = "relative path start";
           }
           continue;
-        } else if ("	" == c || "\n" == c || "\r" == c) {
+        } else if ("  " == c || "\n" == c || "\r" == c) {
           err("Invalid whitespace in file host.");
         } else {
           buffer += c;
@@ -5244,7 +5244,7 @@ if (WebComponents.flags.shadow) {
             break loop;
           }
           continue;
-        } else if ("	" != c && "\n" != c && "\r" != c) {
+        } else if ("  " != c && "\n" != c && "\r" != c) {
           if ("[" == c) {
             seenBracket = true;
           } else if ("]" == c) {
@@ -5272,7 +5272,7 @@ if (WebComponents.flags.shadow) {
           }
           state = "relative path start";
           continue;
-        } else if ("	" == c || "\n" == c || "\r" == c) {
+        } else if ("  " == c || "\n" == c || "\r" == c) {
           err("Invalid code point in port: " + c);
         } else {
           invalid.call(this);
@@ -5317,7 +5317,7 @@ if (WebComponents.flags.shadow) {
             this._fragment = "#";
             state = "fragment";
           }
-        } else if ("	" != c && "\n" != c && "\r" != c) {
+        } else if ("  " != c && "\n" != c && "\r" != c) {
           buffer += percentEscape(c);
         }
         break;
@@ -5326,13 +5326,13 @@ if (WebComponents.flags.shadow) {
         if (!stateOverride && "#" == c) {
           this._fragment = "#";
           state = "fragment";
-        } else if (EOF != c && "	" != c && "\n" != c && "\r" != c) {
+        } else if (EOF != c && "  " != c && "\n" != c && "\r" != c) {
           this._query += percentEscapeQuery(c);
         }
         break;
 
        case "fragment":
-        if (EOF != c && "	" != c && "\n" != c && "\r" != c) {
+        if (EOF != c && "  " != c && "\n" != c && "\r" != c) {
           this._fragment += c;
         }
         break;
