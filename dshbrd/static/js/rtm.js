@@ -38,5 +38,14 @@ function RTM(url){
         this.ws.emit('send', JSON.stringify(conf));
     }
 
+    this.update = function(conf){
+        if (!this.keys_exist([
+                    'collection', 'sender_pair', 'document_id', 'data'
+                ], conf)){
+            return false;
+        }
+        this.ws.emit('update', JSON.stringify(conf));
+    }
+
     //
 }
