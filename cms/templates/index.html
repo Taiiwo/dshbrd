@@ -17,15 +17,17 @@
 
   </head>
   <body>
-    <app-router>
-      {% for path, page in pages.items() %}
-          {% if "element" in page %}
-            <app-route path="{{ path }}" element="{{ page.element }}"></app-route>
-          {% elif "file_path" in page %}
-            <app-route path="{{ path }}" import="{{ page.file_path }}"></app-route>
-          {% endif %}
-      {% endfor %}
-    </app-router>
-
+    <dshbrd-head title="Dshbrd"></dshbrd-head>
+    <main>
+      <app-router>
+        {% for path, page in pages.items() %}
+            {% if "element" in page %}
+              <app-route path="{{ path }}" element="{{ page.element }}"></app-route>
+            {% elif "file_path" in page %}
+              <app-route path="{{ path }}" import="{{ page.file_path }}"></app-route>
+            {% endif %}
+        {% endfor %}
+      </app-router>
+    </main>
   </body>
 </html>

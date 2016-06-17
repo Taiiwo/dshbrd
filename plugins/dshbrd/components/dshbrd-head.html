@@ -17,6 +17,10 @@
         z-index: 99999;
       }
 
+      a {
+        text-decoration: none;
+      }
+
       .logo {
         font-family: 'Roboto', sans-serif;
         font-weight: 300;
@@ -27,7 +31,7 @@
         margin-right: 15px;
       }
 
-      #search {
+      #controls {
         display: flex;
         display: -ms-flex;
         display: -webkit-flex;
@@ -46,10 +50,11 @@
       }
     </style>
     <div id="topBar">
-      <h1 class="logo">{{ title }}</h1>
-      <div id="search">
+      <a is="pushstate-anchor" href="/"><h1 class="logo">{{ title }}</h1></a>
+      <div id="controls">
         <search-bar></search-bar>
         <paper-button raised>Search</paper-button>
+        <user-status></user-status>
       </div>
     </div>
   </template>

@@ -8,3 +8,8 @@ body {
   box-sizing: border-box;
   font-family: 'Roboto';
 }
+
+main {
+	position: relative;
+	top: 100px;
+}

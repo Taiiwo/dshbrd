@@ -1,15 +1,12 @@
-<dom-module id="hacks-page">
+<dom-module id="event-page">
     <template>
-        <style>
-        </style>
-          <dshbrd-head title="{{ config.title }}"></dshbrd-head>
-          <dshbrd-grid width="320" height="320"></dshbrd-grid>
-          <version-bar stage="alpha" link="{{ get_version().link }}" version="{{ get_version().version }}"></version-bar>
+      <dshbrd-grid width="320" height="320"></dshbrd-grid>
+      <version-bar stage="alpha" link="{{ get_version().link }}" version="{{ get_version().version }}"></version-bar>
     </template>
 </dom-module>
 <script>
     Polymer({
-        is: "hacks-page",
+        is: "event-page",
         ready: function() {
           var self = this;
           dshbrd.get_cards(function(data) {

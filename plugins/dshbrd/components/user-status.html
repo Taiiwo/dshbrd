@@ -1,0 +1,43 @@
+<dom-module id="user-status">
+  <template>
+    <style>
+      :host {
+        display: flex;
+        display: -ms-flex;
+        display: -webkit-flex;
+      }
+
+      a {
+        text-decoration: none;
+        outline: none;
+      }
+
+      paper-button {
+        background-color: white;
+        color: #03A9F4;
+      }
+    </style>
+    <template is="dom-if" if="{{ status }}">
+      <h2>Welcome!</h2>
+    </template>
+    <template is="dom-if" if="{{ !status }}">
+      <a is="pushstate-anchor" href="/#/login" tabindex="-1"><paper-button raised id="login-link">Login</paper-button></a>
+      <a is="pushstate-anchor" href="/#/register" tabindex="-1"><paper-button raised id="signup-link">Sign Up</paper-button></a>
+    </template>
+  </template>
+</dom-module>
+<script>
+  Polymer({
+    is: "user-status",
+    properties: {
+      status: Boolean,
+      user: Object
+    },
+    ready: function() {
+      this.status = site.userAuthed()
+      if (site.user_data) {
+        this.user = site.user_data
+      }
+    }
+  });
+</script>
