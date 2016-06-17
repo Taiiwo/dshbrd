@@ -1,0 +1,6 @@
+* text=auto eol=lf
+
+*.py filter=tabs4spaces text
+*.js filter=tabs2spaces text
+*.html filter=tabs2spaces text
+*.css filter=tabs2spaces text
