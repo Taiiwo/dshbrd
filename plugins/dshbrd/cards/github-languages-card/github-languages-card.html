@@ -1,0 +1,59 @@
+<dom-module id="github-languages-card">
+  <template>
+    <style>
+
+    </style>
+    <dshbrd-card>
+      <h2>Github Languages</h2>
+      <div id="gh-lang-chart-div"></div>
+    </dshbrd-card>
+  </template>
+</dom-module>
+<script src="//npmcdn.com/github-api/dist/GitHub.bundle.min.js"></script>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+<script>
+  Polymer({
+    is: "github-languages-card",
+    attached: function() {
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(this.drawChart);
+    },
+    drawChart: function() {
+      var dataTable = new google.visualization.DataTable();
+      dataTable.addColumn("string", "Language");
+      dataTable.addColumn("number", "Count")
+
+      var chart = new google.visualization.PieChart($("#gh-lang-chart-div")[0]);
+      var options = {
+        "Title": "Github Languages",
+        "width": 400,
+        "height": 300
+      }
+      $.get(
+        "https://api.github.com/search/repositories",
+        {
+          q: "query",
+          sort: "updated",
+          order: "desc"
+        },
+        function(data) {
+          let results = new Object()
+          $.each(data.items, function(key, value) {
+            if (typeof results[value.language] === "undefined") {
+              results[value.language] = 1;
+            } else {
+              results[value.language] += 1;
+            }
+          });
+          let results_arr = [];
+          $.each(results, function(key, value) {
+            results_arr.push([key, value])
+          });
+          dataTable.addRows(results_arr);
+          chart.draw(dataTable, options);
+        }
+      );
+    }
+  });
+</script>
