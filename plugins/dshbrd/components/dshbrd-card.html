@@ -6,16 +6,34 @@
             	height: 300px;
             	margin: 0px 10px 20px 10px;
                 background-color: white;
-            	padding: 20px;
+            }
+
+            header {
+                background-color: rgba(224, 0, 50, 0.8);
+                height: 50px;
+                line-height: 50px;
+                color: white;
+                padding: 0px 10px;
+            }
+
+            h3 {
+                font-size: 14pt;
+            }
+
+            #card ::content > div {
+                height: 250px;
             }
         </style>
         <paper-material elevation="2" animated="true" id="card">
+            <header>
+                <h3>{{ name }}</h3>
+            </header>
         	<content></content>
         </paper-material>
     </template>
+    <script>
+        Polymer({
+            is: "dshbrd-card"
+        });
+    </script>
 </dom-module>
-<script>
-    Polymer({
-        is: "dshbrd-card"
-    });
-</script>

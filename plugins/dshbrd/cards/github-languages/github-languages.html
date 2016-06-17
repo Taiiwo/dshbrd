@@ -1,19 +1,19 @@
-<dom-module id="github-languages-card">
+<dom-module id="github-languages">
+  <style>
+    #chart {
+      height: 100%;
+    }
+  </style>
   <template>
-    <style>
-
-    </style>
-    <dshbrd-card>
-      <h2>Github Languages</h2>
+    <dshbrd-card name="GitHub Languages">
       <div id="chart"></div>
     </dshbrd-card>
   </template>
 </dom-module>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-
 <script>
   Polymer({
-    is: "github-languages-card",
+    is: "github-languages",
     attached: function() {
       google.charts.load('current', {'packages':['corechart']});
       google.charts.setOnLoadCallback(this.drawChart);
@@ -25,9 +25,18 @@
 
       var chart = new google.visualization.PieChart($("#chart")[0]);
       var options = {
-        "Title": "Github Languages",
-        "width": 320,
-        "height": 320
+        'legend':'none',
+        "chartArea": {
+          "left": 0,
+          "right": 0,
+          "top": 15,
+          "bottom": 15,
+          "width": "100%",
+          "height": "100%"
+        },
+        "backgroundColor": "transparent",
+        "pieSliceText": 'label',
+        "pieHole": 0.333
       }
       $.get(
         "https://api.github.com/search/repositories",

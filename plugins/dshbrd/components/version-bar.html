@@ -5,10 +5,11 @@
 				background-color: rgba(224, 0, 50, 0.8);
 				font-family: 'Roboto';
 				text-align: center;
-				padding: 10px 0px;
+				line-height: 40px;
 				position: fixed;
 				font-size: 14px;
 				z-index: 1000;
+				height: 40px;
 				color: white;
 				width: 100%;
 				bottom: 0;
@@ -23,12 +24,14 @@
 				color: #ffffff;
 				display: inline;
 				font-weight: 900;
+				opacity: 0.8;
 			}
 
 			#versionBar a:hover {
-				
+				opacity: 1;
 			}
 		</style>
+		<div id="space"></div>
 		<div id="versionBar">
 			<p>This site is still in {{stage}} stages. Current version: </p><a href="{{ link }}" target="_blank">{{ version }}</a>
 		</div>
