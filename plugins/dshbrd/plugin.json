@@ -2,7 +2,7 @@
   "author": "Taiiwo",
   "description": "A configurable dashboard for hackathons",
   "website": "https://github.com/Taiiwo/HackPanel",
-  "depends": ["layout", "version"],
+  "depends": ["layout", "version", "auth"],
   "conflicts": [],
   "datachests": [],
   "pages": {

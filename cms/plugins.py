@@ -140,8 +140,19 @@ def load_plugins():
             continue
         load_plugin(plugin_name)
 
-
 load_plugins()
+
+def get_plugin(plugin_name):
+    # returns the imported object for <plugin name>
+    try:
+        plugin = plugins[plugin_name]
+    except ValueError:
+        raise ValueError("Plugin '%s' could not be found.")
+
+    try:
+        return plugin["import"]
+    except ValueError:
+        raise ImportError("Plugin '%s' does not have anything to import.")
 
 @app.route("/plugins/<string:plugin>/<path:path>")
 def plugin_file_resolver(plugin, path):

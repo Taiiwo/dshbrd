@@ -1,7 +1,7 @@
 import os
 
 from cms import app, config, save_config, plugins
-from cms.api import make_error_response, make_success_response, user
+from cms.api import make_error_response, make_success_response
 
 
 @app.route('/api/plugin/dshbrd/get-cards', methods=["POST"])

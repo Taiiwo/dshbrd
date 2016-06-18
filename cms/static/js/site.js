@@ -28,16 +28,6 @@ function Site() {
     this.route = function(path){
         document.querySelector('app-router').go(path);
     }
-    this.userAuthed = function(){
-        // this is not totally secure, but it's impossible to make authenitcated
-        // requests without a valid session token
-        if (Cookies.get('session') == undefined){
-            return false;
-        }
-        else {
-            return true;
-        }
-    }
     // Adds content to a modal notification.
     // title: the title string
     // text: The html contents of the modal
@@ -78,16 +68,9 @@ function Site() {
             this.modal_open = true;
         }
     }
-    this.auth = function(id, session, callback){
-        this.api(
-            'authenticate',
-            {
-                userID: id,
-                session, session
-            },
-            callback
-        );
-        $(window).trigger('auth_changed');
+    this.toast = function(msg) {
+      console.warn("site.toast is deprecated for something that hasn't been created yet. Use `x` instead when it's done.");
+      console.log(msg);
     }
     // Adds callback to the end of the JS execution flow. Useful for running
     // parallel to ayncronous code with no callback
@@ -100,59 +83,6 @@ function Site() {
         else {
             setTimeout(callback, 0);
         }
-    }
-    this.login = function(username, password, success, fail){
-        // if the username matches a email regex, send it as 'email'
-        var request = {};
-        if (username.match('.*@.*')){
-          // username is an email
-          request.email = username;
-        }
-        else {
-          request.username = username;
-        }
-        request.password = password;
-        this.api(
-            "login",
-            request,
-            function(data) {
-                // if the login was successful
-                if (data.success) {
-                    // set the session cookies
-                    Cookies.set('session', data['session']);
-                    Cookies.set('user_id', data['user_id']);
-                    // set a global variable for the users details
-                    window.user_data = data.user_data;
-                    // notify the user that the login was successful.
-                    console.log('Login Successful!');
-                    // forward the user to the homepage
-                    site.route('/');
-                    if (success) {
-                        success();
-                    }
-                    $(window).trigger('auth_changed');
-                } else {
-                    // whoops, wrong username or password
-                    var error_list = [];
-                    for (var i in data.errors){
-                      var error = data.errors[i];
-                      error_list.push(error.name);
-                    }
-                    console.log("Recieved errors: " + error_list.join(', '));
-                    console.log(data.errors[0].details);
-                    if (fail) {
-                        fail();
-                    }
-                }
-            }
-        );
-    }
-    this.logout = function(){
-        Cookies.remove('session');
-        Cookies.remove('user_id');
-        user_data = undefined;
-        $(window).trigger('auth_changed');
-        console.log('Logged out.');
     }
 }
 window.$$ = document.querySelector;
