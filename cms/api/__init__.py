@@ -1,5 +1,6 @@
 from flask import make_response, jsonify
 from flask_cors import CORS
+from inspect import getouterframes, currentframe
 
 from .. import app, util, config, root_logger
 
@@ -95,12 +96,12 @@ def make_error(error_name, extra_detail=None):
 
 
 
-has_warned = False
+
 def make_error_response(*args, **kwargs):
-    global has_warned
-    if not has_warned:
-        api_logger.warn("`make_error_response(<error>)` is deprecated. Use `raise <error>()` instead")
-        has_warned = True
+    (frame, filename, line_number, function_name, lines, index) = inspect.getouterframes(inspect.currentframe())[1]
+    print("make_error_response called from: %s, line: %i, func: %s" % (filename, line_number, function_name))
+
+    api_logger.warn("`make_error_response(<error>)` is deprecated. Use `raise <error>()` instead")
 
     error_res = make_error(*args, **kwargs)
     res = make_response(jsonify(error_res), 200)
