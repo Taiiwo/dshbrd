@@ -1,4 +1,5 @@
 // TODO: Add deprecation notice to all these and move to auth.*
+
 site.login = function(username, password, success, fail){
   // if the username matches a email regex, send it as 'email'
   var request = {};
@@ -46,6 +47,7 @@ site.login = function(username, password, success, fail){
     }
   );
 }
+
 site.logout = function() {
   Cookies.remove('session');
   Cookies.remove('user_id');
@@ -53,6 +55,7 @@ site.logout = function() {
   $(window).trigger('auth_changed');
   console.log('Logged out.');
 }
+
 site.auth = function(id, session, callback){
   site.plugin_api(
     "auth",
@@ -65,6 +68,7 @@ site.auth = function(id, session, callback){
   );
   $(window).trigger('auth_changed');
 }
+
 site.userAuthed = function(){
   // this is not totally secure, but it's impossible to make authenitcated
   // requests without a valid session token
@@ -74,4 +78,17 @@ site.userAuthed = function(){
   else {
     return true;
   }
+}
+
+if (Cookies.get('session') && Cookies.get('user_id')){
+    // user has cookies, auth them
+    site.auth(Cookies.get('user_id'), Cookies.get('session'), function(data){
+        if (data.success) {
+            window.user_data = data.user_data;
+        } else {
+            console.log("Session Expired.");
+            Cookies.remove('session');
+            Cookies.remove('user_id');
+        }
+    });
 }

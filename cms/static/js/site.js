@@ -87,15 +87,3 @@ function Site() {
 }
 window.$$ = document.querySelector;
 var site = new Site();
-if (Cookies.get('session') && Cookies.get('user_id')){
-    // user has cookies, auth them
-    site.auth(Cookies.get('user_id'), Cookies.get('session'), function(data){
-        if (data.success) {
-            window.user_data = data.user_data;
-        } else {
-            console.log("Session Expired.");
-            Cookies.remove('session');
-            Cookies.remove('user_id');
-        }
-    });
-}
