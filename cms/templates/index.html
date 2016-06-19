@@ -16,16 +16,14 @@
 
   </head>
   <body>
-    <main>
-      <app-router>
-        {% for path, page in pages.items() %}
-            {% if "element" in page %}
-              <app-route path="{{ path }}" element="{{ page.element }}"></app-route>
-            {% elif "file_path" in page %}
-              <app-route path="{{ path }}" import="{{ page.file_path }}"></app-route>
-            {% endif %}
-        {% endfor %}
-      </app-router>
-    </main>
+    <app-router>
+      {% for path, page in pages.items() %}
+          {% if "element" in page %}
+            <app-route path="{{ path }}" element="{{ page.element }}"></app-route>
+          {% elif "file_path" in page %}
+            <app-route path="{{ path }}" import="{{ page.file_path }}"></app-route>
+          {% endif %}
+      {% endfor %}
+    </app-router>
   </body>
 </html>
