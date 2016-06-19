@@ -7,11 +7,11 @@
   "datachests": [],
   "pages": {
     "/**/": {
-      "file_path": "hacks-page.html"
+      "file_path": "event-page.html"
     }
   },
   "templates": [
-    "hacks-page.html",
+    "event-page.html",
     "components.html"
   ],
   "version": "0.0.0a1"

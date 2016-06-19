@@ -26,7 +26,7 @@ function Site() {
         $(id).html(md.makeHtml(text));
     }
     this.route = function(path){
-        document.querySelector('app-router').go(path);
+        document.querySelector('app-router').go(path, {replace: true});
     }
     // Adds content to a modal notification.
     // title: the title string

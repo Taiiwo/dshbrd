@@ -1,0 +1,67 @@
+<dom-module id="user-status">
+  <template>
+    <style>
+      :host {
+        display: flex;
+        display: -ms-flex;
+        display: -webkit-flex;
+      }
+
+      a {
+        text-decoration: none;
+        outline: none;
+      }
+
+      paper-button {
+        background-color: white;
+        white-space: nowrap;
+        color: #03A9F4;
+      }
+
+      h3 {
+        text-transform: capitalize;
+        white-space: nowrap;
+        font-size: 100;
+        color: white;
+      }
+    </style>
+    <template id="logged-in" is="dom-if" if="{{ status }}">
+      <a is="pushstate-anchor" href="/#/my-account" tabindex="-1"><paper-button raised id="account-button">My Account</paper-button></a>
+      <paper-button raised id="logout-button">Logout</paper-button>
+    </template>
+    <template id="logged-out" is="dom-if" if="{{ !status }}">
+      <a is="pushstate-anchor" href="/#/login" tabindex="-1"><paper-button raised id="login-link">Login</paper-button></a>
+      <a is="pushstate-anchor" href="/#/register" tabindex="-1"><paper-button raised id="signup-link">Sign Up</paper-button></a>
+    </template>
+  </template>
+</dom-module>
+<script>
+  Polymer({
+    is: "user-status",
+    properties: {
+      status: Boolean,
+      user: Object
+    },
+    attached: function() {
+      var self = this;
+      this.getUser()
+
+      $(window).on("auth_changed", function() {
+        self.getUser()
+      });
+
+      this.async(function() {
+        $("#logout-button").click(function() {
+          site.logout();
+          site.route("/login")
+        })
+      })
+    },
+    getUser: function() {
+      this.status = site.userAuthed()
+      if (window.user_data) {
+        this.user = window.user_data
+      }
+    }
+  });
+</script>

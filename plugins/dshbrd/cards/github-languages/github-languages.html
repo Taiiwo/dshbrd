@@ -14,7 +14,7 @@
 <script>
   Polymer({
     is: "github-languages",
-    attached: function() {
+    ready: function() {
       google.charts.load('current', {'packages':['corechart']});
       google.charts.setOnLoadCallback(this.drawChart);
     },

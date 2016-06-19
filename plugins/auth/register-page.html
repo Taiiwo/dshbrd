@@ -1,43 +1,53 @@
 <dom-module id="register-page">
+    <script src="auth.js"></script>
+    <style>
+        :host {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #register {
+            width: 600px;
+        }
+
+        h2 {
+            color: rgba(224, 0, 50, 0.8);
+            font-size: 42pt;
+        }
+
+        #register-form {
+            display: flex;
+            display: -ms-flex;
+            display: -webkit-flex;
+            flex-direction: column;
+        }
+
+        paper-button {
+            width: 200px;
+            background-color: rgba(224, 0, 50, 0.8);
+            margin: 20px 0 !important;
+            align-self: flex-end;
+            color: white;
+        }
+
+        paper-input {
+          --paper-input-container-focus-color: rgba(224, 0, 50, 0.8);
+        }
+    </style>
     <template>
-        <script src="auth.js"></script>
-        <style>
-            h2 {
-                font-size: 240%;
-            }
-            .skillSlider {
-                width: 100%;
-                max-width: 440px;
-            }
-        </style>
-        <div class="register-div">
-        <div class="container">
+        <div id="register">
             <h2>Sign Up</h2>
-            <form id="signup-form" action="/api/1/register" method="POST">
-              <div class="row">
-                  <div class="input-field col s6">
-                      <input value="" name="username" id="username" type="text" class="validate" pattern="\w{1,140}">
-                      <label class="active" for="username" data-error="Too long!">Username</label>
-                  </div>
-              </div>
-              <div class="row">
-                  <div class="input-field col s6">
-                      <input value="" name="email" id="email" type="text" class="validate" pattern=".*@.*">
-                      <label class="active" for="email" data-error="Invalid email!">Email</label>
-                  </div>
-              </div>
-              <div class="row">
-                  <div class="input-field col s6">
-                      <input value="" name="password" id="passw" type="password" class="validate"  pattern=".{6,140}">
-                      <label data-error="Too short!" class="active" for="password">Password</label>
-                  </div>
-              </div>
-              <button id="register" class="btn waves-effect waves-light" type="submit" name="action">
-                  Submit
-                  <i class="material-icons right">send</i>
-              </button>
+            <form id="register-form" action="/api/1/register" method="POST">
+                <paper-input label="Username" type="text" name="username"></paper-input>
+                <paper-input label="Email" type="text" name="email"></paper-input>
+                <paper-input label="Password" type="password" name="password"></paper-input>
+
+                <paper-button raised id="signup-button">Submit</paper-button>
             </form>
-    </div>
+        </div>
     </template>
 </dom-module>
 <script>

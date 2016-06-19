@@ -8,13 +8,26 @@
         justify-content: center;
         background-color: rgba(224, 0, 50, 0.8);
         -webkit-backdrop-filter: blur(5px);
-        align-items: center;
         position: fixed;
         padding: 15px 25px;
         top: 0;
         left: 0;
         right: 0;
         z-index: 99999;
+      }
+
+      #container {
+        max-width: 1500px;
+        display: flex;
+        display: -ms-flex;
+        display: -webkit-flex;
+        justify-content: center;
+        align-items: center;
+        flex: 1;
+      }
+
+      a {
+        text-decoration: none;
       }
 
       .logo {
@@ -27,7 +40,7 @@
         margin-right: 15px;
       }
 
-      #search {
+      #controls {
         display: flex;
         display: -ms-flex;
         display: -webkit-flex;
@@ -46,10 +59,13 @@
       }
     </style>
     <div id="topBar">
-      <h1 class="logo">{{ title }}</h1>
-      <div id="search">
-        <search-bar></search-bar>
-        <paper-button raised>Search</paper-button>
+      <div id="container">
+        <a is="pushstate-anchor" href="/"><h1 class="logo">{{ title }}</h1></a>
+        <div id="controls">
+          <search-bar></search-bar>
+          <paper-button raised>Search</paper-button>
+          <user-status></user-status>
+        </div>
       </div>
     </div>
   </template>
