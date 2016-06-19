@@ -53,7 +53,7 @@
       this.async(function() {
         $("#logout-button").click(function() {
           site.logout();
-          site.route("/login")
+          site.route("/")
         })
       })
     },
@@ -62,6 +62,8 @@
       if (window.user_data) {
         this.user = window.user_data
       }
+      this.$["logged-in"].render();
+      this.$["logged-out"].render();
     }
   });
 </script>
