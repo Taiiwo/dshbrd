@@ -44,6 +44,7 @@
             <paper-input label="Username" type="text" id="username"></paper-input>
             <paper-input label="Password" type="password" id="password"></paper-input>
             <paper-button raised id="login-button">Login</paper-button>
+            <input type="submit" hidden />
           </form>
         </div>
     </template>
@@ -56,10 +57,13 @@
                 // already logged in, you don't need to be here
                 site.route('/my-account');
             }
-            $('#login-button').click(function(){
+            $('#login-form').submit(function(){
                 site.login($('#username').val(), $('#password').val());
                 return false;
             });
+            $("#login-button").click(function() {
+              $("#login-form").submit();
+            })
         }
     });
 </script>
