@@ -3,9 +3,14 @@
 <dom-module id="dshbrd-grid">
     <template>
         <style>
+            :host {
+                display: block;
+                margin-top: 50px;
+            }
+
             #grid {
-                margin: 0px 20px;
-                max-width: 100%;
+                max-width: 1000px;
+                margin: auto;
             }
         </style>
         <div id="grid"></div>
@@ -14,29 +19,36 @@
 <script>
   Polymer({
     is: "dshbrd-grid",
-    properties: {
-    	width: Number,
-    	height: Number
+    attached: function(){
+      this.wall = new Freewall('#grid');
+      var self = this;
+      this.wall.reset({
+        selector: '.card',
+        cellW: 270,
+        cellH: 300,
+        fixSize: 1,
+        keepOrder: true,
+        animate: true,
+        draggable: true,
+        onResize: function() {
+          self.wall.fitWidth();
+        }
+      });
+      // caculator height for IE7;
+      self.wall.fitWidth();
+      $(window).trigger("resize");
     },
-    attached: function() {
-        var wall = new Freewall("#grid");
-        this.wall = wall
-       	wall.reset({
-            selector: '.card',
-            animate: true,
-            draggable: true,
-            cellW: this.width,
-            cellH: this.height,
-            onResize: function() {
-            	wall.fitWidth();
-            }
+    append_grid: function(div){
+      var self = this;
+      // wait until the grid is actually loaded
+      site.append_stack(function(){
+        div.find('img').load(function() {
+          self.wall.fitWidth();
         });
-
-        wall.fitWidth();
-        wall.refresh();
-    },
-    addCard: function(card) {
-        this.wall.appendBlock(card[0]);
+        div.attr('data-width', '270');
+        self.wall.prepend(div);
+        self.wall.fitWidth();
+      });
     }
   });
 </script>
