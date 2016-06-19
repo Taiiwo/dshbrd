@@ -4,3 +4,8 @@
 <link rel="import" href="components/dshbrd-card.html"/>
 <link rel="import" href="components/dshbrd-grid.html"/>
 <link rel="import" href="components/version-bar.html"/>
+
+<script type="text/javascript">
+  if ($("dshbrd-head").length === 0)  // if we don't have a header yet
+    $("body").append($("<dshbrd-head>").attr("title", "Dshbrd"));
+</script>
