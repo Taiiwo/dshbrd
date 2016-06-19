@@ -38,11 +38,10 @@
             }
         </style>
         <div id="login">
-
           <h2>Login</h2>
           <form id="login-form" action="/api/1/register" method="POST">
-            <paper-input label="Username" type="text"></paper-input>
-            <paper-input label="Password" type="password"></paper-input>
+            <paper-input label="Username" type="text" id="username"></paper-input>
+            <paper-input label="Password" type="password" id="password"></paper-input>
             <paper-button raised id="login-button">Login</paper-button>
           </form>
         </div>
@@ -54,9 +53,9 @@
         attached: function() {
             if (site.userAuthed()){
                 // already logged in, you don't need to be here
-                site.route('/');
+                site.route('/my-account');
             }
-            $('#login').click(function(){
+            $('#login-button').click(function(){
                 site.login($('#username').val(), $('#password').val());
                 return false;
             });

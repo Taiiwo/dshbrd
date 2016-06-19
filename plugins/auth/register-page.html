@@ -40,11 +40,11 @@
         <div id="register">
             <h2>Sign Up</h2>
             <form id="register-form" action="/api/1/register" method="POST">
-                <paper-input label="Username" type="text"></paper-input>
-                <paper-input label="Email" type="text"></paper-input>
-                <paper-input label="Password" type="password"></paper-input>
+                <paper-input label="Username" type="text" name="username"></paper-input>
+                <paper-input label="Email" type="text" name="email"></paper-input>
+                <paper-input label="Password" type="password" name="password"></paper-input>
 
-                <paper-button raised id="signup">Submit</paper-button>
+                <paper-button raised id="signup-button">Submit</paper-button>
             </form>
         </div>
     </template>
@@ -54,10 +54,10 @@
         is: "register-page",
         attached: function() {
             var baseUrl = "";
-            $('#signup').click(function(){
+            $('#signup-button').click(function(){
                 site.api(
                     'register',
-                    $("#signup-form").serialize(),
+                    $("#register-form").serialize(),
                     function(data) {
                         if (data.success) {
                             // set the session cookies
@@ -73,7 +73,7 @@
                             if (err.error_name == "username_taken") {
                                 console.log('Sorry, that username is taken.');
                             } else {
-                                console.log('Unexpected error');
+                                console.log(err);
                             }
                         }
                     }

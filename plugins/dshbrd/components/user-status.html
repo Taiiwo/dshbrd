@@ -14,13 +14,22 @@
 
       paper-button {
         background-color: white;
+        white-space: nowrap;
         color: #03A9F4;
       }
+
+      h3 {
+        text-transform: capitalize;
+        white-space: nowrap;
+        font-size: 100;
+        color: white;
+      }
     </style>
-    <template is="dom-if" if="{{ status }}">
-      <h2>Welcome!</h2>
+    <template id="logged-in" is="dom-if" if="{{ status }}">
+      <a is="pushstate-anchor" href="/#/my-account" tabindex="-1"><paper-button raised id="account-button">My Account</paper-button></a>
+      <paper-button raised id="logout-button">Logout</paper-button>
     </template>
-    <template is="dom-if" if="{{ !status }}">
+    <template id="logged-out" is="dom-if" if="{{ !status }}">
       <a is="pushstate-anchor" href="/#/login" tabindex="-1"><paper-button raised id="login-link">Login</paper-button></a>
       <a is="pushstate-anchor" href="/#/register" tabindex="-1"><paper-button raised id="signup-link">Sign Up</paper-button></a>
     </template>
@@ -33,10 +42,25 @@
       status: Boolean,
       user: Object
     },
-    ready: function() {
+    attached: function() {
+      var self = this;
+      this.getUser()
+
+      $(window).on("auth_changed", function() {
+        self.getUser()
+      });
+
+      this.async(function() {
+        $("#logout-button").click(function() {
+          site.logout();
+          site.route("/login")
+        })
+      })
+    },
+    getUser: function() {
       this.status = site.userAuthed()
-      if (site.user_data) {
-        this.user = site.user_data
+      if (window.user_data) {
+        this.user = window.user_data
       }
     }
   });
