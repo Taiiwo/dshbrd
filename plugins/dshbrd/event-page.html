@@ -4,23 +4,29 @@
         position: relative;
         top: 100px;
       }
+      .card {
+        height: 300px;
+        width: 270px;
+      }
     </style>
     <template>
-      <dshbrd-grid width="320" height="320"></dshbrd-grid>
+      <dshbrd-grid></dshbrd-grid>
       <version-bar stage="alpha" link="{{ get_version().link }}" version="{{ get_version().version }}"></version-bar>
     </template>
 </dom-module>
 <script>
     Polymer({
         is: "event-page",
-        ready: function() {
+        attached: function() {
           var self = this;
           dshbrd.get_cards(function(data) {
             for (var i = 0; i < data.cards.length; i++) {
               self.importHref("/plugins/dshbrd/cards/" + data.cards[i] + "/" + data.cards[i] + ".html")
 
-              var card = $("<" + data.cards[i] + " />").addClass("card");
-              document.querySelector('dshbrd-grid').addCard(card);
+              var card = $("<div>").addClass('card event-page').append(
+                $("<" + data.cards[i] + " />")
+              );
+              document.querySelector('dshbrd-grid').append_grid(card);
             }
           });
         }
