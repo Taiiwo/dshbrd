@@ -4,3 +4,5 @@
 *.js filter=tabs2spaces text
 *.html filter=tabs2spaces text
 *.css filter=tabs2spaces text
+
+cms/static/components/* linguist-vendored
