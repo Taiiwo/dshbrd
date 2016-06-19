@@ -24,7 +24,7 @@ site.login = function(username, password, success, fail){
         // set a global variable for the users details
         window.user_data = data.user_data;
         // notify the user that the login was successful.
-        console.log('Login Successful!');
+        site.toast('Login Successful!');
         // forward the user to the homepage
         site.route('/');
         if (success) {
@@ -39,7 +39,7 @@ site.login = function(username, password, success, fail){
           error_list.push(error.name);
         }
         console.log("Recieved errors: " + error_list.join(', '));
-        console.log(data.errors[0].details);
+        site.toast(data.errors[0].details);
         if (fail) {
           fail();
         }
@@ -53,7 +53,7 @@ site.logout = function() {
   Cookies.remove('user_id');
   user_data = undefined;
   $(window).trigger('auth_changed');
-  console.log('Logged out.');
+  site.toast('Logged out.');
 }
 
 site.auth = function(id, session, callback){
@@ -86,7 +86,7 @@ if (Cookies.get('session') && Cookies.get('user_id')){
         if (data.success) {
             window.user_data = data.user_data;
         } else {
-            console.log("Session Expired.");
+            site.toast("Session Expired.");
             Cookies.remove('session');
             Cookies.remove('user_id');
         }
