@@ -58,7 +58,6 @@
     is: "register-page",
     attached: function() {
       var baseUrl = "";
-      // polymer being shit doesn't allow paper-button to submit forms, so we handle both
       var form = $(this.$.register_form);
       var btn = $(this.$.register_button);
       form.submit(this.register);
@@ -93,7 +92,6 @@
               site.toast("Sorry, that username is taken.");
             } else {
               site.toast("Unexpected error");
-              console.log(err)
             }
           }
       });

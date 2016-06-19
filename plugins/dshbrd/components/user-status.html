@@ -45,27 +45,25 @@
     attached: function() {
       var self = this;
       this.getUser()
+      this.logout()
 
       $(window).on("auth_changed", function() {
-        self.getUser()
+        self.getUser();
+        self.logout();
       });
-
-      this.async(function() {
-        $("#logout-button").click(function() {
-          site.logout();
-          site.route("/")
-        })
-      })
     },
     getUser: function() {
       this.status = site.userAuthed()
       if (window.user_data) {
         this.user = window.user_data
       }
-      this.$["logged-in"].render();
-      this.$["logged-out"].render();
-
-      $("#logout-button").click(site.logout)
+    },
+    logout: function() {
+      this.async(function() {
+        $("#logout-button").click(function() {
+          site.logout();
+        })
+      })
     }
   });
 </script>
