@@ -45,11 +45,16 @@
     attached: function() {
       var self = this;
       this.getUser()
-      this.logout()
+
+      // re-add the trigger for the logout button when the dom is changed
+      $("#logged-in").on("dom-change", function() {
+        $("#logout-button").click(function() {
+          site.logout();
+        })
+      })
 
       $(window).on("auth_changed", function() {
         self.getUser();
-        self.logout();
       });
     },
     getUser: function() {
@@ -57,13 +62,6 @@
       if (window.user_data) {
         this.user = window.user_data
       }
-    },
-    logout: function() {
-      this.async(function() {
-        $("#logout-button").click(function() {
-          site.logout();
-        })
-      })
     }
   });
 </script>
