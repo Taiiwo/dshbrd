@@ -1,0 +1,76 @@
+<dom-module id="chat-card">
+    <template>
+        <style>
+            #msg-bar {
+              width: 240px;
+              margin-left: 1.5px;
+            }
+            #msg-box {
+              height: 220px;
+            }
+        </style>
+        <dshbrd-card name="Chat">
+        <div id="msg-box"></div>
+        <div id="msg">
+          <input type="text" id="msg-bar" />
+          <input type="button" id="msg-send" />
+        </div>
+        </dshbrd-card>
+    </template>
+</dom-module>
+<script>
+  Polymer({
+    is: "chat-card",
+    attached: function(){
+      function display_message(user, message) {
+        $('#msg-box').prepend($('<p>').text(user + ": " + message));
+      }
+      var rtm = new RTM();
+      rtm.listen({
+        collection: "chat-card",
+        recipientID_type: "username",
+        senderID_type: "username",
+        sender_pair: ["Public", rtm.blank_sha512],
+        recipient_pairs: [["Public", rtm.blank_sha512]],
+        backlog: true
+      });
+      rtm.ws.on('data_received', function(data) {
+        if (data.sender_username == "Public") {
+          var user = "anon";
+        }
+        else {
+          var user = data.sender_username;
+        }
+        display_message(user, data.data);
+      });
+      
+      rtm.ws.on('data_sent', function(data) {
+        console.log(data);
+      });
+      rtm.ws.on('error', function(data) {
+        console.log(data);
+      });
+      $('#msg-send').click(function(){
+        var rtm = new RTM();
+        if (typeof (user_data) != "undefined") {
+          var sender_pair = [user_data.username, Cookies('session')];
+        }
+        else {
+          var sender_pair = ["Public", rtm.blank_sha512];
+        }
+        rtm.send({
+          collection: "chat-card",
+          sender_pair: sender_pair,
+          recipient: "Public",
+          senderID_type: "username",
+          recipientID_type: "username",
+          data: $('#msg-bar').val()
+        });
+        
+        rtm.ws.on('error', function(data) {
+          console.log(data);
+        });
+      });
+    }
+  });
+</script>
