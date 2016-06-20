@@ -15,7 +15,7 @@ def get_git_version():
         commit_hash = open(os.path.join(".git", ref)).read().strip()
 
     return {
-        "version": commit_hash[-8:-1],
+        "version": commit_hash[0:7],
         "full_version": commit_hash,
         "link": config["link_format_string"].format(hash=commit_hash)
     }
