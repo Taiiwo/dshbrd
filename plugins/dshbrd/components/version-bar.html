@@ -1,40 +1,36 @@
 <dom-module id="version-bar">
 	<template>
 		<style>
-			#versionBar {
+			:host {
+				display: block;
 				background-color: rgba(224, 0, 50, 0.8);
+				align-self: flex-end;
 				font-family: 'Roboto';
 				text-align: center;
 				line-height: 40px;
-				position: fixed;
 				font-size: 14px;
-				z-index: 1000;
 				height: 40px;
 				color: white;
 				width: 100%;
-				bottom: 0;
 			}
 
-			#versionBar p {
+			:host p {
 				font-weight: 100;
 				display: inline;
 			}
 
-			#versionBar a {
+			:host a {
 				color: #ffffff;
 				display: inline;
 				font-weight: 900;
 				opacity: 0.8;
 			}
 
-			#versionBar a:hover {
+			:host a:hover {
 				opacity: 1;
 			}
 		</style>
-		<div id="space"></div>
-		<div id="versionBar">
-			<p>This site is still in {{stage}} stages. Current version: </p><a href="{{ link }}" target="_blank">{{ version }}</a>
-		</div>
+		<p>This site is still in {{stage}} stages. Current version: </p><a href="{{ link }}" target="_blank">{{ version }}</a>
 	</template>
 </dom-module>
 <script>

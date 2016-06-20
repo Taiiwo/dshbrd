@@ -1,54 +1,44 @@
-<script type="text/javascript" src="/static/js/freewall.js"></script>
+<script type="text/javascript" src="/static/js/shapeshift.js"></script>
 
 <dom-module id="dshbrd-grid">
     <template>
         <style>
-            :host {
-                display: block;
-                margin-top: 50px;
-            }
+          .grid {
+            position: relative;
+            width: 100%;
+          }
 
-            #grid {
-                max-width: 1000px;
-                margin: auto;
-            }
+          .card {
+            display: block;
+            position: absolute !important;
+            width: 300px !important;
+            height: 300px;
+          }
         </style>
-        <div id="grid"></div>
+        <div class="grid"></div>
     </template>
 </dom-module>
 <script>
   Polymer({
     is: "dshbrd-grid",
     attached: function(){
-      this.wall = new Freewall('#grid');
       var self = this;
-      this.wall.reset({
-        selector: '.card',
-        cellW: 270,
-        cellH: 300,
-        fixSize: 1,
-        keepOrder: true,
-        animate: true,
-        draggable: true,
-        onResize: function() {
-          self.wall.fitWidth();
-        }
-      });
-      // caculator height for IE7;
-      self.wall.fitWidth();
-      $(window).trigger("resize");
+      $(window).on("cards_added", function() {
+        self.reloadGrid()
+      })
     },
-    append_grid: function(div){
-      var self = this;
-      // wait until the grid is actually loaded
-      site.append_stack(function(){
-        div.find('img').load(function() {
-          self.wall.fitWidth();
-        });
-        div.attr('data-width', '270');
-        self.wall.prepend(div);
-        self.wall.fitWidth();
-      });
+    addCard: function(card){
+      $(".grid").append($(card[0]).addClass("card").addClass("dshbrd-grid"));
+    },
+    reloadGrid: function() {
+      $(".grid").shapeshift({
+        selector: ".card",
+        centerDragging: false,
+        colWidth: 300,
+        paddingX: 50,
+        gutterX: 50,
+        gutterY: 50
+      })
     }
   });
 </script>

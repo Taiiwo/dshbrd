@@ -1,12 +1,9 @@
 <dom-module id="event-page">
     <style>
       :host {
+        height: calc(100% - 100px);
         position: relative;
         top: 100px;
-      }
-      .card {
-        height: 300px;
-        width: 270px;
       }
     </style>
     <template>
@@ -20,14 +17,21 @@
         attached: function() {
           var self = this;
           dshbrd.get_cards(function(data) {
-            for (var i = 0; i < data.cards.length; i++) {
-              self.importHref("/plugins/dshbrd/cards/" + data.cards[i] + "/" + data.cards[i] + ".html")
+            var i = 0;
+            var cardsAdded = false;
+            while (cardsAdded == false) {
+              if (i < data.cards.length) {
+                self.importHref("/plugins/dshbrd/cards/" + data.cards[i] + "/" + data.cards[i] + ".html")
 
-              var card = $("<div>").addClass('card event-page').append(
-                $("<" + data.cards[i] + " />")
-              );
-              document.querySelector('dshbrd-grid').append_grid(card);
-            }
+                var card = $("<" + data.cards[i] + " />")
+                document.querySelector('dshbrd-grid').addCard(card);
+
+                i++;
+              } else {
+                cardsAdded = true;
+                $(window).trigger("cards_added");
+              }
+            }  
           });
         }
     });
