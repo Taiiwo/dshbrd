@@ -25,11 +25,15 @@ class Util:
         )
 
     # Shorthand for sha512 sum
-    def sha512(self, data):
-        if type(data) is str:
-            return hashlib.sha512(data.encode('utf-8')).hexdigest()
-        elif type(data) is bytes:
-            return hashlib.sha512(data).hexdigest()
+    def sha512(self, *data, is_hex=True):
+        hasher = hashlib.sha512()
+        for datum in data:
+            if type(data) is str:
+                hasher.update(datum.encode('utf-8'))
+            elif type(data) is bytes:
+                hasher.update(data)
+
+        return hasher.hexdigest()
 
     def auth(self, user_id, session):
         # get user deets
@@ -37,11 +41,13 @@ class Util:
         # find user in db
         user = db.find_one({'_id': ObjectId(user_id)})
         # check if the session is legit
-        hasher = hashlib.sha512()
-        hasher.update(user["passhash"].encode("utf8"))
-        hasher.update(user["session_salt"])
-        x = hasher.digest()
-        if user and session == x:
+        if user is None:
+            return False
+        print(user)
+
+        digest = self.sha512(user["passhash"], user["session_salt"])
+
+        if session == digest:
             return user
         else:
             return False
@@ -103,7 +109,7 @@ class Util:
                         request['recipient']
                     ].remove(socket)
                 matches = True
-                if socket.where_sender != (False,):
+                if socket.where_sender != False:
                     for clause in socket.where_sender:
                         if document[clause] != socket.where_sender[clause]:
                             matches = False
@@ -230,12 +236,12 @@ class Util:
         # build datachest document
         datachest = {
             "username": name,
-            "password": '' if public else self.sha512(os.urandom(512)),
+            "passhash": self.sha512('') if public else self.sha512(os.urandom(512)),
             "session_salt": '' if public else self.sha512(os.urandom(512)),
             "is_datachest": True
         }
         # build an auth key
-        session_key = self.sha512(datachest['session_salt'] + datachest['passw'])
+        session_key = self.sha512(datachest['session_salt'], datachest['passhash'])
         # check if DataChest exists
         users = self.get_collection('users', db=self.config['auth_db'])
         if users.find_one({'username': datachest['username']}):

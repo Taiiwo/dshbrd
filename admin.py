@@ -82,7 +82,7 @@ if command == "datachest":
             if not datachest:
                 quit("[E] Datachest does not exist")
             datachest_session = util.sha512(
-                datachest['session_salt'] + datachest['passw']
+                datachest['passhash'], datachest['session_salt']
             )
             util.update_user(userID, {
                 "$set": {
