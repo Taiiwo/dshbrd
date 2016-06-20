@@ -15,7 +15,8 @@
             height: 300px;
           }
         </style>
-        <div class="grid"></div>
+        <div id="dom_spy" hidden></div>
+        <div id="dshbrd_grid" class="grid"></div>
     </template>
 </dom-module>
 <script>
@@ -23,22 +24,35 @@
     is: "dshbrd-grid",
     attached: function(){
       var self = this;
-      $(window).on("cards_added", function() {
-        self.reloadGrid()
-      })
-    },
-    addCard: function(card){
-      $(".grid").append($(card[0]).addClass("card").addClass("dshbrd-grid"));
-    },
-    reloadGrid: function() {
-      $(".grid").shapeshift({
+      $(this.$.dshbrd_grid).shapeshift({
         selector: ".card",
         centerDragging: false,
         colWidth: 300,
         paddingX: 50,
         gutterX: 50,
         gutterY: 50
+      });
+      $(window).on("cards_added", function() {
+        self.reloadGrid()
       })
+    },
+    addCard: function(cards){
+      let self = this;
+      $.each(cards, function(i, card){
+        $(self.$.dshbrd_grid).append(
+          $(card).addClass("card").addClass("dshbrd-grid")
+        );
+      });
+    },
+    reloadGrid: function() {
+      // after pissing about for ~2 hrs, i'm unable to find a way to reload the
+      // grid only after everything is sorted and reloading it will fix the
+      // bug on chrome. TODO: replace this with something else
+      var self = this;
+      setTimeout(function(){
+        console.log("reloading")
+        $(self.$.dshbrd_grid).trigger("ss-rearrange");
+      }, 200);
     }
   });
 </script>
