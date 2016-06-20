@@ -37,9 +37,11 @@ class Util:
         # find user in db
         user = db.find_one({'_id': ObjectId(user_id)})
         # check if the session is legit
-        if user and session == self.sha512(
-                (user['session_salt'] + user['passw']).encode('utf-8')
-                ):
+        hasher = hashlib.sha512()
+        hasher.update(user["passhash"].encode("utf8"))
+        hasher.update(user["session_salt"])
+        x = hasher.digest()
+        if user and session == x:
             return user
         else:
             return False
@@ -228,7 +230,7 @@ class Util:
         # build datachest document
         datachest = {
             "username": name,
-            "passw": '' if public else self.sha512(os.urandom(512)),
+            "password": '' if public else self.sha512(os.urandom(512)),
             "session_salt": '' if public else self.sha512(os.urandom(512)),
             "is_datachest": True
         }
