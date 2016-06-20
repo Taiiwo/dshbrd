@@ -10,6 +10,7 @@ def get_cards():
     for root, dirs, files in os.walk('plugins/dshbrd/cards/'):
         for dir_name in dirs:
             dir_names.append(dir_name)
+        break
     return make_success_response({'cards': dir_names})
 
 def main(app, config):
