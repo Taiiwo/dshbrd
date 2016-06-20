@@ -7,10 +7,14 @@
   "datachests": [],
   "pages": {
     "/**/": {
+      "file_path": "home-page.html"
+    },
+    "/event/:id": {
       "file_path": "event-page.html"
     }
   },
   "templates": [
+    "home-page.html",
     "event-page.html",
     "components.html"
   ],

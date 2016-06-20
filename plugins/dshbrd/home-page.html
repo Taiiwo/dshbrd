@@ -1,0 +1,19 @@
+<dom-module id="home-page">
+    <style>
+      :host {
+        position: relative;
+        top: 100px;
+      }
+    </style>
+    <template>
+      
+    </template>
+</dom-module>
+<script>
+    Polymer({
+        is: "home-page",
+        attached: function() {
+          site.route("/event/1")
+        }
+    });
+</script>
