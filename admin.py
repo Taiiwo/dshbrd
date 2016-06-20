@@ -44,7 +44,7 @@ if command == "datachest":
             if len(arg) < 1:
                 quit("[E] Requires one argument: datachest name")
             # check if chest with that name exists
-            users = util.get_collection('usersname', db=util.config['auth_db'])
+            users = util.get_collection('users', db=util.config['auth_db'])
             user_exists = users.find({'username': arg[0]}).count() > 0
             if user_exists:
                 quit('[E] User exists')

@@ -28,10 +28,10 @@ class Util:
     def sha512(self, *data, is_hex=True):
         hasher = hashlib.sha512()
         for datum in data:
-            if type(data) is str:
+            if type(datum) is str:
                 hasher.update(datum.encode('utf-8'))
-            elif type(data) is bytes:
-                hasher.update(data)
+            elif type(datum) is bytes:
+                hasher.update(datum)
 
         return hasher.hexdigest()
 
@@ -46,7 +46,8 @@ class Util:
         print(user)
 
         digest = self.sha512(user["passhash"], user["session_salt"])
-
+        print(session)
+        print(digest)
         if session == digest:
             return user
         else:
@@ -144,6 +145,7 @@ class Util:
     # it using the recieve_stream method
     def send(self, data, sender_pair, recipient, collection):
         # authenticate the sender
+        print("sender: ", sender_pair[0], sender_pair[1])
         sender = self.auth(sender_pair[0], sender_pair[1])
         # die if the sender was not found
         if not sender: return False

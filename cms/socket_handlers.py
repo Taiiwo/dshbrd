@@ -39,76 +39,74 @@ all_listeners = {}
 
 @socket.on("listen", namespace="/component")
 def listen_handler(data):
-    request_data = json.loads(data)
+    print(data)
     if not util.keys_exist([
                 "backlog", "sender_pair", "collection", "recipient_pairs"
-            ], request_data) or \
-            len(request_data["sender_pair"]) != 2:
-        emit("error", "Invalid params")
-        return "0"
+            ], data) or \
+            len(data["sender_pair"]) != 2:
+        return make_error("data_missing", "unknown")
     # convert usernames to ids if requested
-    recipientID_type = request_data["recipientID_type"] if "recipientID_type"\
-            in request_data else "id"
+    recipientID_type = data["recipientID_type"] if "recipientID_type"\
+            in data else "id"
     if recipientID_type == "username":
         # convert recipient usernames to ids
         users = util.get_collection("users", db=util.config["auth_db"])
-        for pair in request_data["recipient_pairs"]:
+        for pair in data["recipient_pairs"]:
             recipient = users.find_one({"username": pair[0]})
             if recipient and len(recipient) > 0:
                 pair[0] = str(recipient["_id"])
             else:
-                emit("error", "Recipient username not found")
-                return "0"
-    senderID_type = request_data["senderID_type"] if "senderID_type" \
-            in request_data else "id"
+                return make_error("data_missing", "recipient")
+    senderID_type = data["senderID_type"] if "senderID_type" \
+            in data else "id"
     # send the user backlogs if requested
     if senderID_type == "username":
         # convert sender usernames to ids
         users = util.get_collection("users", db=util.config["auth_db"])
-        sender = users.find_one({"username": request_data["sender_pair"][0]})
+        sender = users.find_one({"username": data["sender_pair"][0]})
         if len(sender) > 0:
-            request_data["sender_pair"][0] = str(recipient["_id"])
+            data["sender_pair"][0] = str(recipient["_id"])
         else:
-            emit("error", "Sender username not found")
-            return "0"
+            # emit("error", "Sender username not found")
+            return make_error("user_not_found")
     recipient_senders = []
-    if "recipient_senders" in request_data:
-        for sender in request_data["recipient_senders"]:
+    if "recipient_senders" in data:
+        for sender in data["recipient_senders"]:
             recipient_senders.append(
                 str(users.find_one({"username": sender})["_id"])
             )
-        request_data["recipient_senders"] = recipient_senders
-    # authenticate the request_data (and get a sneaky recipients list)
-    auth, recipients = util.auth_listen(request_data)
+        data["recipient_senders"] = recipient_senders
+    # authenticate the data (and get a sneaky recipients list)
+    auth, recipients = util.auth_listen(data)
     if not auth:
-        return "0"
+        return make_error("unknown_error", "no auth")
     # replace id searches with object id searches
-    if "where_sender" in request_data:
-        for clause in request_data["where_sender"]:
+    if "where_sender" in data:
+        for clause in data["where_sender"]:
             if clause == "_id":
-                request_data["where_sender"][clause] = ObjectId(
-                    request_data["where_sender"][clause]
+                data["where_sender"][clause] = ObjectId(
+                    data["where_sender"][clause]
                 )
-    if "where_recipient" in request_data:
-        for clause in request_data["where_recipient"]:
+    if "where_recipient" in data:
+        for clause in data["where_recipient"]:
             if clause == "_id":
-                request_data["where_recipient"][clause] = ObjectId(
-                    request_data["where_recipient"][clause]
+                data["where_recipient"][clause] = ObjectId(
+                    data["where_recipient"][clause]
                 )
     # send the user backlogs if requested
-    if "backlog" in request_data and request_data["backlog"]:
+    if "backlog" in data and data["backlog"]:
         # get previously sent documents
         senders_log, recipients_log = util.get_documents(
-            request_data["sender_pair"][0],
+            data["sender_pair"][0],
             recipients,
-            request_data["collection"],
+            data["collection"],
             time_order=True,
             recipient_senders=recipient_senders if recipient_senders else False,
             recipientID_type=recipientID_type,
-            where_recipient=request_data["where_recipient"]\
-                    if "where_recipient" in request_data else False,
-            where_sender=request_data["where_sender"]\
-                    if "where_sender" in request_data else False
+            where_recipient=data["where_recipient"]\
+                    if "where_recipient" in data else False,
+            where_sender=data["where_sender"]\
+                    if "where_sender" in data else False
         )
         for document in senders_log:
             if document["visible"]:
@@ -133,14 +131,14 @@ def listen_handler(data):
     # add socket to dict of sockets to keep updated
     # (Choosing speed over memory here)
     # create a socket object to represent us
-    socket = Socket(request.sid, request_data)
+    socket = Socket(request.sid, data)
     # add us to a list of all listener sockets
     live_sockets[socket.sid] = socket
     # make sure the list exists first
-    if not request_data["sender_pair"][0] in live_sockets["senders"]:
-        live_sockets["senders"][request_data["sender_pair"][0]] = []
+    if not data["sender_pair"][0] in live_sockets["senders"]:
+        live_sockets["senders"][data["sender_pair"][0]] = []
     # append us to the list of senders subscribed to changes
-    live_sockets["senders"][request_data["sender_pair"][0]].append(socket)
+    live_sockets["senders"][data["sender_pair"][0]].append(socket)
     # append us to a list of subscribers for each recipient we"re following
     for recipient in recipients:
         if not recipient in live_sockets["recipients"]:
@@ -149,43 +147,46 @@ def listen_handler(data):
 
 @socket.on("send", namespace="/component")
 def send_handler(data):
-    print(data)
-    request = json.loads(data)
-    # validate request
-    if not "sender_pair" in request or not "recipient" in request or \
-            not "collection" in request or not "data" in request:
-        emit("error", "Invalid Arguments")
-        return False
-    sender_pair = request["sender_pair"]
-    recipient = request["recipient"]
-    collection = request["collection"]
-    message = request["data"]
-    if "senderID_type" in request and request["senderID_type"] == "username":
+    # validate data
+    if not "sender_pair" in data or not "recipient" in data or \
+            not "collection" in data or not "data" in data:
+        return make_error(
+            "unknown_error",
+            "Invalid Arguments"
+        )
+    sender_pair = data["sender_pair"]
+    recipient = data["recipient"]
+    collection = data["collection"]
+    message = data["data"]
+    if "senderID_type" in data and data["senderID_type"] == "username":
         users = util.get_collection("users", db=util.config["auth_db"])
         user = users.find_one({"username": sender_pair[0]})
         if user:
             sender_pair[0] = str(user["_id"])
         else:
-            emit("error", "Sender username does not exist")
-            return False
-    if "recipientID_type" in request and request["recipientID_type"] == \
+            return make_error(
+                "unknown_error",
+                "Sender username does not exist"
+            )
+    if "recipientID_type" in data and data["recipientID_type"] == \
             "username":
         users = util.get_collection("users", db=util.config["auth_db"])
         user = users.find_one({"username": recipient})
         if user:
             recipient = str(user["_id"])
-            request["recipient"] = recipient
+            data["recipient"] = recipient
         else:
-            emit("error", "Recipient username does not exist")
-            return False
+            return make_error(
+                "unknown_error",
+                "Recipient username does not exist"
+            )
     # store document
     document = util.send(message, sender_pair, recipient, collection)
     if not document:
-        emit('error', make_error(
+        return make_error(
             'unknown_error',
             "Data was not added to the DB for some reason"
-        ))
-        return False
+        )
     # send Updates
     document_tidy = {
         "sender": document["sender"],
@@ -195,24 +196,25 @@ def send_handler(data):
         "ts": document["ts"],
         "update": False
     }
-    util.emit_to_relevant_sockets(request, document_tidy, live_sockets)
-    emit("data_sent", "Data was sent")
+    util.emit_to_relevant_sockets(data, document_tidy, live_sockets)
+
+    #TODO: convert to make_success
+    return {"success": True, "message": "Data was sent"}
 
 @socket.on("update", namespace="/component")
 def update_handler(data):
     print(data)
-    request = json.loads(data)
-    # validate request
-    if not "sender_pair" in request or not "document_id" in request or \
-            not "collection" in request or not "data" in request:
+    # validate data
+    if not "sender_pair" in data or not "document_id" in data or \
+            not "collection" in data or not "data" in data:
         emit("error", "Invalid Arguments")
         return False
-    sender_pair = request["sender_pair"]
-    document_id = request["document_id"]
-    collection = request["collection"]
-    document = request["data"]
+    sender_pair = data["sender_pair"]
+    document_id = data["document_id"]
+    collection = data["collection"]
+    document = data["data"]
     # convert usernames to ids
-    if "senderID_type" in request and request["senderID_type"] == "username":
+    if "senderID_type" in data and data["senderID_type"] == "username":
         users = util.get_collection("users", db=util.config["auth_db"])
         user = users.find_one({"username": sender_pair[0]})
         if user:
@@ -239,7 +241,7 @@ def update_handler(data):
         "ts": document["ts"],
         "update": True
     }
-    util.emit_to_relevant_sockets(request, document_tidy, live_sockets)
+    util.emit_to_relevant_sockets(data, document_tidy, live_sockets)
     emit("data_sent", "Data was updated")
 
 @socket.on("disconnect")
