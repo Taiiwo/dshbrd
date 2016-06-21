@@ -7,7 +7,6 @@
 				font-family: 'Roboto';
 				text-align: center;
 				line-height: 40px;
-				position: fixed;
 				font-size: 14px;
 				z-index: 1000;
 				height: 40px;
@@ -37,6 +36,12 @@
 </dom-module>
 <script>
 	Polymer({
-		is: "version-bar"
+		is: "version-bar",
+		attached: function() {
+			var self = this;
+			$(window).on("grid-ready", function() {
+				self.style.position = "fixed";
+			})
+		}
 	});
 </script>
